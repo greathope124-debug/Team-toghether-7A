@@ -1,100 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Team Together Oman 7A – Interactive English</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef7ff,#f8f2ff);color:#24324a}header{background:linear-gradient(135deg,#2457a6,#7042b8);color:#fff;text-align:center;padding:30px 15px}header h1{margin:0;font-size:32px}header p{margin:9px 0;font-size:17px}nav{position:sticky;top:0;z-index:10;background:#fff;padding:10px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;box-shadow:0 2px 10px #0002}nav button,.action{border:0;border-radius:20px;padding:10px 15px;background:#edf2ff;color:#2457a6;font-weight:bold;cursor:pointer}nav button:hover,.action:hover{background:#2457a6;color:#fff}.container{max-width:1100px;margin:auto;padding:24px 15px 50px}.page{display:none}.page.active{display:block}.hero,.card,.unit,.activity{background:#fff;border-radius:20px;padding:24px;box-shadow:0 4px 16px #0001;margin-bottom:20px}.hero{text-align:center}.hero h2,.unit h2,.activity h3{color:#2457a6}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.card h3{color:#7042b8}.lesson{background:#f7f9ff;border-left:6px solid #7042b8;padding:17px;border-radius:12px;margin:14px 0}.word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.word{background:#fff;border:2px solid #dce5ff;border-radius:12px;padding:13px;text-align:center;font-weight:bold;cursor:pointer}.word:hover{background:#edf2ff}.option{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1px solid #ccd7ef;border-radius:10px;background:#fff;cursor:pointer}.option:hover{background:#edf2ff}.correct{background:#c9f7d5!important}.wrong{background:#ffd1d1!important}.score{font-size:19px;font-weight:bold;margin-top:12px}input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ccd7ef;border-radius:10px;font-family:Arial}textarea{min-height:130px}label{display:block;margin:12px 0;font-size:16px}footer{text-align:center;background:#202b43;color:#fff;padding:20px}@media(max-width:600px){header h1{font-size:24px}.hero,.unit,.activity{padding:18px}}
-</style><meta name="site-version" content="interactive-2026-09-25-2">
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef7ff,#fff5fb);color:#25344d}
+header{background:linear-gradient(135deg,#2457a6,#7b43b5);color:white;text-align:center;padding:30px 15px}
+header h1{margin:0;font-size:32px}header p{margin:8px 0}
+nav{position:sticky;top:0;z-index:20;background:#fff;padding:10px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;box-shadow:0 3px 15px #0002}
+nav button,.btn{border:0;border-radius:22px;padding:11px 16px;background:#edf2ff;color:#2457a6;font-weight:bold;cursor:pointer;transition:.2s}
+nav button:hover,.btn:hover{transform:translateY(-2px);background:#2457a6;color:#fff}
+.container{max-width:1150px;margin:auto;padding:22px 15px 60px}.page{display:none}.page.active{display:block}
+.hero,.card,.unit,.activity{background:#fff;border-radius:22px;padding:24px;box-shadow:0 5px 18px #0001;margin-bottom:20px}
+.hero{text-align:center}.hero h2,.unit h2,.activity h3{color:#2457a6}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{transition:.2s}.card:hover{transform:translateY(-4px)}.card h3{color:#7042b8}
+.lesson{background:#f7f9ff;border-left:6px solid #7042b8;padding:17px;border-radius:14px;margin:14px 0}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.wordcard{background:white;border:2px solid #dce5ff;border-radius:18px;padding:14px;text-align:center;cursor:pointer;transition:.2s}
+.wordcard:hover{transform:translateY(-4px);box-shadow:0 6px 15px #0001}
+.pic{font-size:48px;display:block;margin-bottom:7px}.word{font-weight:bold;font-size:17px}.mini{font-size:12px;color:#65728a}
+.option{display:block;width:100%;text-align:left;margin:8px 0;padding:13px;border:2px solid #d8e1f3;border-radius:12px;background:#fff;cursor:pointer;font-weight:600}
+.option:hover{background:#edf2ff}.correct{background:#c9f7d5!important;border-color:#53b86a!important}.wrong{background:#ffd1d1!important;border-color:#e36a6a!important}
+.score{font-size:19px;font-weight:bold;margin-top:12px}.xpbar{height:18px;background:#e8edf7;border-radius:20px;overflow:hidden}.xpfill{height:100%;width:0;background:linear-gradient(90deg,#ffbd4a,#7b43b5);transition:.4s}
+.stat{display:inline-block;background:#f1f5ff;padding:10px 15px;border-radius:15px;margin:5px;font-weight:bold}
+.gamebox{background:linear-gradient(135deg,#f8fbff,#f9f1ff);border:2px solid #e0e6ff;border-radius:20px;padding:22px;text-align:center}
+.match-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:15px}
+.match-card{border:2px solid #ccd8f0;background:white;border-radius:16px;padding:18px;cursor:pointer;font-weight:bold;min-height:90px}
+.match-card.selected{outline:4px solid #b8c9ff}.match-card.done{background:#d5f8dd;pointer-events:none}
+.timer{font-size:28px;font-weight:bold}.badge{display:inline-block;padding:9px 13px;border-radius:20px;background:#fff2bd;margin:4px}
+input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ccd7ef;border-radius:10px;font-family:Arial}textarea{min-height:130px}
+footer{text-align:center;background:#202b43;color:#fff;padding:22px}
+@media(max-width:600px){header h1{font-size:24px}.hero,.unit,.activity{padding:18px}}
+</style>
 </head>
 <body>
-<header><h1>Team Together Oman 7A</h1><p>Interactive English Learning Website • Grade 7</p></header>
-<nav><button onclick="showPage('home')">🏠 Home</button><button onclick="showPage('units')">📚 Units</button><button onclick="showPage('vocabulary')">🧠 Vocabulary</button><button onclick="showPage('grammar')">✏️ Grammar</button><button onclick="showPage('skills')">🎯 Skills</button><button onclick="showPage('games')">🎮 Games</button><button onclick="showPage('progress')">⭐ Progress</button></nav>
+<header><h1>🌟 Team Together Oman 7A</h1><p>Interactive English Learning • Grade 7</p><div id="topStats"></div></header>
+<nav>
+<button onclick="showPage('home')">🏠 Home</button><button onclick="showPage('units')">📚 Units</button><button onclick="showPage('vocabulary')">🧠 Vocabulary</button><button onclick="showPage('grammar')">✏️ Grammar</button><button onclick="showPage('skills')">🎯 Skills</button><button onclick="showPage('games')">🎮 Games</button><button onclick="showPage('progress')">⭐ Progress</button>
+</nav>
 <div class="container">
 
 <section id="home" class="page active">
-<div class="hero"><h2>Welcome! 👋</h2><p>Explore Semester 1 of Team Together Oman 7A through interactive vocabulary, grammar, reading, listening, speaking and writing practice.</p><p><strong>Choose a unit and start learning!</strong></p></div>
+<div class="hero"><h2>Welcome, English Explorer! 👋</h2><p>Learn, listen, play and collect XP while you practise Team Together Oman 7A.</p><div id="homeStats"></div><div class="xpbar"><div id="xpFill" class="xpfill"></div></div><p id="levelText"></p></div>
 <div class="cards">
-<div class="card"><h3>🎬 Unit 1</h3><p><strong>Entertainment</strong></p><button class="action" onclick="showPage('units');location.hash='u1'">Open Unit 1</button></div>
-<div class="card"><h3>🦁 Unit 2</h3><p><strong>Awesome Animals</strong></p><button class="action" onclick="showPage('units');location.hash='u2'">Open Unit 2</button></div>
-<div class="card"><h3>✈️ Unit 3</h3><p><strong>Travel</strong></p><button class="action" onclick="showPage('units');location.hash='u3'">Open Unit 3</button></div>
-<div class="card"><h3>🌟 Learning Club</h3><p>After Unit 3, the Teacher’s Book includes a Language booster lesson and a CLIL lesson.</p></div>
+<div class="card"><h3>🎬 Unit 1</h3><p><b>Entertainment</b></p><button class="btn" onclick="openUnit('u1')">Explore →</button></div>
+<div class="card"><h3>🦁 Unit 2</h3><p><b>Awesome Animals</b></p><button class="btn" onclick="openUnit('u2')">Explore →</button></div>
+<div class="card"><h3>✈️ Unit 3</h3><p><b>Travel</b></p><button class="btn" onclick="openUnit('u3')">Explore →</button></div>
+<div class="card"><h3>🎮 Games Zone</h3><p>Play vocabulary and speed challenges.</p><button class="btn" onclick="showPage('games')">Play →</button></div>
 </div>
-<div class="activity"><h3>📖 Course features</h3><p>Vocabulary • Grammar • Reading • Listening • Speaking • Writing • Culture • Projects • Exam practice • Future skills</p></div>
 </section>
 
 <section id="units" class="page">
-<div class="hero"><h2>📚 Semester 1 Units</h2><p>The Teacher’s Book identifies three units before the Learning Club section.</p></div>
-
+<div class="hero"><h2>📚 Course Units</h2><p>Choose a unit and explore its lessons.</p></div>
 <div id="u1" class="unit"><h2>🎬 Unit 1 — Entertainment</h2>
-<div class="lesson"><h3>Lesson 1 — Jobs in entertainment</h3><p>Vocabulary: presenter, performer, comedian, clown, puppeteer, sound editor, stunt performer, animator, writer, costume designer, make-up artist, camera operator.</p><div id="v1grid" class="word-grid"></div></div>
-<div class="lesson"><h3>Lesson 2 — WOW! Talent Show</h3><p>Read and listen about Emily, Bayan, Frank and Majid and their roles in the talent show. Practise describing entertainment jobs.</p></div>
-<div class="lesson"><h3>Lesson 3 — Grammar and communication</h3><p>Practise Present continuous for arrangements and Present Perfect with <strong>for</strong> and <strong>since</strong>.</p></div>
-<div class="lesson"><h3>Lesson 4 — Skills practice</h3><p>Develop reading, listening, speaking and writing around entertainment.</p></div>
-<div class="lesson"><h3>Lesson 5 — Project / English in Action</h3><p>Use the entertainment topic in practical communication. The digital resources include the Unit 1 English in Action video about buying tickets.</p></div>
-<div class="lesson"><h3>Lesson 6 — Culture</h3><p>Culture lessons develop Omani identity and awareness of the wider world.</p></div>
-<div class="activity"><h3>🎯 Unit 1 Quick Check</h3><p>Which person tells jokes and makes people laugh?</p><button class="option" onclick="mc(this,false)">Presenter</button><button class="option" onclick="mc(this,true)">Comedian</button><button class="option" onclick="mc(this,false)">Writer</button><p>“I’ve worked here ___ five years.”</p><button class="option" onclick="mc(this,true)">for</button><button class="option" onclick="mc(this,false)">since</button></div>
-</div>
-
+<div class="lesson"><h3>Lesson 1 — Jobs in entertainment</h3><p>Tap a card to hear the word.</p><div id="v1grid" class="word-grid"></div></div>
+<div class="lesson"><h3>Lessons 2–6</h3><p>Explore entertainment texts, grammar, skills, practical communication and culture.</p></div>
+<div class="activity"><h3>🎯 Unit 1 Challenge</h3><p>Which person tells jokes and makes people laugh?</p><button class="option" onclick="mc(this,false)">Presenter</button><button class="option" onclick="mc(this,true)">Comedian</button><button class="option" onclick="mc(this,false)">Writer</button><p>I've worked here ___ five years.</p><button class="option" onclick="mc(this,true)">for</button><button class="option" onclick="mc(this,false)">since</button></div></div>
 <div id="u2" class="unit"><h2>🦁 Unit 2 — Awesome Animals</h2>
-<div class="lesson"><h3>Lesson 1 — Animal body parts</h3><p>Vocabulary: antennae, beak, flippers, paws, horns, scales, spines, whiskers.</p><div id="v2grid" class="word-grid"></div></div>
-<div class="lesson"><h3>Lesson 2 — Amazing animals</h3><p>Read and listen about animals and use clues such as body parts, movement and appearance to identify them.</p></div>
-<div class="lesson"><h3>Lesson 3 — Grammar: possibility and certainty</h3><p>Practise <strong>could, may, might, must</strong> and <strong>can’t</strong> to make deductions about animals.</p></div>
-<div class="lesson"><h3>Lesson 4 — Skills and animal facts</h3><p>Reading, listening, speaking and writing include animal fact files and descriptions. The unit practice uses the axolotl as an example.</p></div>
-<div class="lesson"><h3>Lesson 5 — Project / English in Action</h3><p>Use animal information to communicate and present ideas. The digital resources include a Unit 2 English in Action video.</p></div>
-<div class="lesson"><h3>Lesson 6 — Culture</h3><p>Culture develops awareness of Oman and the wider world.</p></div>
-<div class="activity"><h3>🔎 Animal Detective</h3><p>It has fur and only one hump. It must be an ...</p><button class="option" onclick="mc(this,true)">Arabian camel</button><button class="option" onclick="mc(this,false)">penguin</button><button class="option" onclick="mc(this,false)">shark</button><p>It has scales. You are not sure. It ___ be a fish.</p><button class="option" onclick="mc(this,false)">must</button><button class="option" onclick="mc(this,true)">might</button><button class="option" onclick="mc(this,false)">can’t</button></div>
-</div>
-
+<div class="lesson"><h3>Animal body parts</h3><p>Tap a card to hear the word.</p><div id="v2grid" class="word-grid"></div></div>
+<div class="activity"><h3>🔎 Animal Detective</h3><p>It has fur and one hump. It must be an...</p><button class="option" onclick="mc(this,true)">Arabian camel</button><button class="option" onclick="mc(this,false)">penguin</button><button class="option" onclick="mc(this,false)">shark</button><p>It ___ be a fish. I'm not sure.</p><button class="option" onclick="mc(this,false)">must</button><button class="option" onclick="mc(this,true)">might</button><button class="option" onclick="mc(this,false)">can't</button></div></div>
 <div id="u3" class="unit"><h2>✈️ Unit 3 — Travel</h2>
-<div class="lesson"><h3>Lesson 1 — Travel and transport</h3><p>Expressions: travel by train, catch a bus, get off, pack my suitcase, take a seat.</p><div id="v3grid" class="word-grid"></div></div>
-<div class="lesson"><h3>Lesson 2 — Holiday equipment</h3><p>Vocabulary: passport, guidebook, medicine, umbrella, suitcase, raincoat, charger, flip-flops, pillow, washbag, toothbrush, soap.</p><div id="v4grid" class="word-grid"></div></div>
-<div class="lesson"><h3>Lesson 3 — Grammar: future plans and predictions</h3><p>Practise <strong>will</strong> and <strong>be going to</strong>. Unit practice also revises present continuous, present perfect, first conditional and modals.</p></div>
-<div class="lesson"><h3>Lesson 4 — Skills practice</h3><p>Reading includes travel emails and information texts. Writing includes a holiday plan and an email reply.</p></div>
-<div class="lesson"><h3>Lesson 5 — Project / English in Action</h3><p>Use travel language in practical situations and communicate plans.</p></div>
-<div class="lesson"><h3>Lesson 6 — Culture</h3><p>Culture develops awareness of Oman and the wider world.</p></div>
-<div class="activity"><h3>🧳 Travel Quick Check</h3><p>Which sentence is correct?</p><button class="option" onclick="mc(this,true)">I’m going to pack my suitcase.</button><button class="option" onclick="mc(this,false)">I’m going pack my suitcase.</button><button class="option" onclick="mc(this,false)">I going to pack my suitcase.</button><p>What do you do before getting on a train?</p><button class="option" onclick="mc(this,true)">Take a seat.</button><button class="option" onclick="mc(this,false)">Get off.</button><button class="option" onclick="mc(this,false)">Catch a bus.</button></div>
-</div>
-
-<div class="unit"><h2>🌟 Learning Club</h2><p>After Unit 3, the Teacher’s Book describes a Learning Club section with a <strong>Language booster</strong> lesson and a <strong>CLIL</strong> lesson. The CLIL work integrates English with subjects such as Social Studies and Science.</p></div>
+<div class="lesson"><h3>Travel and holiday vocabulary</h3><div id="v3grid" class="word-grid"></div></div>
+<div class="activity"><h3>🧳 Travel Challenge</h3><p>Which sentence is correct?</p><button class="option" onclick="mc(this,true)">I'm going to pack my suitcase.</button><button class="option" onclick="mc(this,false)">I'm going pack my suitcase.</button><button class="option" onclick="mc(this,false)">I going to pack my suitcase.</button></div></div>
+<div class="unit"><h2>🌟 Learning Club</h2><p>Language booster and CLIL activities after Unit 3.</p></div>
 </section>
 
-<section id="vocabulary" class="page"><div class="hero"><h2>🧠 Vocabulary Practice</h2><p>Click a word to hear British-English pronunciation.</p></div>
-<div class="activity"><h3>Unit 1 — Entertainment</h3><div id="allv1" class="word-grid"></div></div>
-<div class="activity"><h3>Unit 2 — Awesome Animals</h3><div id="allv2" class="word-grid"></div></div>
-<div class="activity"><h3>Unit 3 — Travel</h3><div id="allv3" class="word-grid"></div></div></section>
+<section id="vocabulary" class="page"><div class="hero"><h2>🧠 Picture Vocabulary</h2><p>🔊 Tap any card to hear the English word.</p></div>
+<div class="activity"><h3>🎬 Entertainment</h3><div id="allv1" class="word-grid"></div></div>
+<div class="activity"><h3>🦁 Animals</h3><div id="allv2" class="word-grid"></div></div>
+<div class="activity"><h3>✈️ Travel</h3><div id="allv3" class="word-grid"></div></div></section>
 
-<section id="grammar" class="page"><div class="hero"><h2>✏️ Grammar Practice</h2><p>Interactive revision based on Semester 1 grammar in the Teacher’s Book.</p></div>
-<div class="activity"><h3>Unit 1 — for or since?</h3><p>I’ve worked at the aquarium ___ five years.</p><button class="option" onclick="mc(this,true)">for</button><button class="option" onclick="mc(this,false)">since</button><p>We’ve lived here ___ 2017.</p><button class="option" onclick="mc(this,false)">for</button><button class="option" onclick="mc(this,true)">since</button></div>
-<div class="activity"><h3>Unit 2 — Animal deductions</h3><p>It has a beak and wings. It ___ be a bird.</p><button class="option" onclick="mc(this,true)">must</button><button class="option" onclick="mc(this,false)">can’t</button><p>I’m not sure what it is. It ___ be a fish.</p><button class="option" onclick="mc(this,false)">must</button><button class="option" onclick="mc(this,true)">might</button><button class="option" onclick="mc(this,false)">can’t</button></div>
-<div class="activity"><h3>Unit 3 — will or going to?</h3><p>Look at those clouds! It ___ rain.</p><button class="option" onclick="mc(this,true)">is going to</button><button class="option" onclick="mc(this,false)">will</button><p>I think we ___ have a great trip.</p><button class="option" onclick="mc(this,true)">will</button><button class="option" onclick="mc(this,false)">are going to</button></div></section>
+<section id="grammar" class="page"><div class="hero"><h2>✏️ Grammar Challenge</h2><p>Choose an answer and get instant feedback.</p></div>
+<div class="activity"><h3>⏰ Unit 1 — for or since?</h3><p>I've worked here ___ five years.</p><button class="option" onclick="mc(this,true)">for</button><button class="option" onclick="mc(this,false)">since</button><p>We've lived here ___ 2017.</p><button class="option" onclick="mc(this,false)">for</button><button class="option" onclick="mc(this,true)">since</button></div>
+<div class="activity"><h3>🦁 Unit 2 — possibility</h3><p>I'm not sure. It ___ be a fish.</p><button class="option" onclick="mc(this,false)">must</button><button class="option" onclick="mc(this,true)">might</button><button class="option" onclick="mc(this,false)">can't</button></div>
+<div class="activity"><h3>✈️ Unit 3 — future</h3><p>Look at those clouds! It ___ rain.</p><button class="option" onclick="mc(this,true)">is going to</button><button class="option" onclick="mc(this,false)">will</button></div></section>
 
-<section id="skills" class="page"><div class="hero"><h2>🎯 Skills Practice</h2><p>Reading, listening, speaking and writing connected to the three units.</p></div>
-<div class="cards"><div class="card"><h3>📖 Reading</h3><p>Unit 1: entertainment adverts and texts. Unit 2: animal texts and fact files. Unit 3: travel emails and information texts.</p></div><div class="card"><h3>🎧 Listening</h3><p>Use the unit audio and practise listening for specific information. The book labels recordings with audio numbers.</p></div><div class="card"><h3>💬 Speaking</h3><p>Unit 1: talk about weekend plans. Unit 2: identify animals from clues. Unit 3: compare travel pictures and talk about journeys.</p></div><div class="card"><h3>✍️ Writing</h3><p>Unit 1: write an advert for a science museum. Unit 2: write an animal fact-file paragraph. Unit 3: write a holiday plan or email reply.</p></div></div>
-<div class="activity"><h3>✍️ My Writing Practice</h3><input id="topic" placeholder="Topic"><textarea id="writing" placeholder="Write your paragraph here..."></textarea><button class="action" onclick="saveWriting()">Check practice</button><div id="writingResult" class="score"></div></div></section>
+<section id="skills" class="page"><div class="hero"><h2>🎯 Skills</h2><p>Reading • Listening • Speaking • Writing</p></div>
+<div class="cards"><div class="card"><h3>📖 Reading</h3><p>Practise reading for specific information.</p></div><div class="card"><h3>🎧 Listening</h3><p>Use the book audio and listen for key information.</p><button class="btn" onclick="speak('Listen carefully and choose the correct answer.')">🔊 Hear instruction</button></div><div class="card"><h3>💬 Speaking</h3><p>Say the vocabulary aloud and practise describing pictures.</p></div><div class="card"><h3>✍️ Writing</h3><p>Write a short paragraph and check that you completed the task.</p></div></div>
+<div class="activity"><h3>✍️ My Writing Practice</h3><input id="topic" placeholder="Topic"><textarea id="writing" placeholder="Write your paragraph here..."></textarea><button class="btn" onclick="saveWriting()">Check practice</button><div id="writingResult" class="score"></div></div></section>
 
-<section id="games" class="page"><div class="hero"><h2>🎮 Games Zone</h2><p>Quick challenges from all three units.</p></div>
-<div class="activity"><h3>⚡ Mixed Challenge</h3><p>Which job makes people laugh?</p><button class="option" onclick="mc(this,true)">Comedian</button><button class="option" onclick="mc(this,false)">Camera operator</button><button class="option" onclick="mc(this,false)">Writer</button><p>Which animal body part helps a penguin swim?</p><button class="option" onclick="mc(this,true)">Flippers</button><button class="option" onclick="mc(this,false)">Paws</button><button class="option" onclick="mc(this,false)">Whiskers</button><p>Which phrase means “leave a bus or train”?</p><button class="option" onclick="mc(this,true)">get off</button><button class="option" onclick="mc(this,false)">catch a bus</button><button class="option" onclick="mc(this,false)">take a seat</button></div>
-<div class="activity"><h3>🔤 Sentence Builder</h3><p>Click the words in the correct order.</p><div class="word-grid"><div class="word" onclick="addWord('She')">She</div><div class="word" onclick="addWord('is')">is</div><div class="word" onclick="addWord('a')">a</div><div class="word" onclick="addWord('presenter')">presenter</div></div><p id="sentence" style="min-height:45px;border:2px dashed #ccd7ef;padding:12px;border-radius:10px"></p><button class="action" onclick="checkSentence()">Check</button> <button class="action" onclick="clearSentence()">Clear</button><div id="sentenceResult" class="score"></div></div></section>
+<section id="games" class="page">
+<div class="hero"><h2>🎮 Games Zone</h2><p>Earn XP by playing!</p></div>
+<div class="activity"><h3>🧩 Picture Match</h3><p>Match each picture with the correct English word.</p><div id="matchGame" class="match-grid"></div><p id="matchResult" class="score"></p></div>
+<div class="activity"><h3>⚡ 30-Second Challenge</h3><div class="gamebox"><div id="timer" class="timer">30</div><p id="speedQ">Press Start!</p><div id="speedOptions"></div><button class="btn" onclick="startSpeed()">▶ Start Game</button><p id="speedScore" class="score"></p></div></div>
+<div class="activity"><h3>🔤 Sentence Builder</h3><p>Tap the words in the correct order.</p><div class="word-grid"><div class="wordcard" onclick="addWord('She')">She</div><div class="wordcard" onclick="addWord('is')">is</div><div class="wordcard" onclick="addWord('a')">a</div><div class="wordcard" onclick="addWord('presenter')">presenter</div></div><p id="sentence" style="min-height:45px;border:2px dashed #ccd7ef;padding:12px;border-radius:10px"></p><button class="btn" onclick="checkSentence()">Check</button> <button class="btn" onclick="clearSentence()">Clear</button><div id="sentenceResult" class="score"></div></div>
+</section>
 
-<section id="progress" class="page"><div class="hero"><h2>⭐ My Progress</h2><p>Track your Semester 1 learning.</p></div><div class="activity"><label><input type="checkbox" onchange="saveProgress()"> Unit 1 Entertainment</label><label><input type="checkbox" onchange="saveProgress()"> Unit 2 Awesome Animals</label><label><input type="checkbox" onchange="saveProgress()"> Unit 3 Travel</label><label><input type="checkbox" onchange="saveProgress()"> Vocabulary practice</label><label><input type="checkbox" onchange="saveProgress()"> Grammar practice</label><label><input type="checkbox" onchange="saveProgress()"> Skills practice</label><p id="progressText" class="score">Progress: 0%</p></div></section>
+<section id="progress" class="page"><div class="hero"><h2>⭐ My Progress</h2><p>Keep learning and collect XP.</p><div id="progressStats"></div><div class="xpbar"><div id="progressFill" class="xpfill"></div></div><p id="progressLevel"></p></div>
+<div class="activity"><h3>🏅 Badges</h3><div id="badges"></div></div>
+<div class="activity"><h3>📋 Learning checklist</h3><label><input type="checkbox" onchange="saveChecklist()"> Unit 1 Entertainment</label><label><input type="checkbox" onchange="saveChecklist()"> Unit 2 Awesome Animals</label><label><input type="checkbox" onchange="saveChecklist()"> Unit 3 Travel</label><label><input type="checkbox" onchange="saveChecklist()"> Vocabulary</label><label><input type="checkbox" onchange="saveChecklist()"> Grammar</label><label><input type="checkbox" onchange="saveChecklist()"> Games</label></div></section>
 </div>
-<footer><p>Team Together Oman 7A – Interactive English</p><p>Based on the Team Together Oman Grade 7A Teacher’s Book.</p></footer>
+<footer>🌟 Team Together Oman 7A – Interactive English</footer>
+
 <script>
-const v1=['presenter','performer','comedian','clown','puppeteer','sound editor','stunt performer','animator','writer','costume designer','make-up artist','camera operator'];
-const v2=['antennae','beak','flippers','paws','horns','scales','spines','whiskers'];
-const v3=['travel by train','catch a bus','get off','pack my suitcase','take a seat'];
-const v4=['passport','guidebook','medicine','umbrella','suitcase','raincoat','charger','flip-flops','pillow','washbag','toothbrush','soap'];
-function makeGrid(id,arr){document.getElementById(id).innerHTML=arr.map(w=>'<div class="word" onclick="speak('+JSON.stringify(w)+')">'+w+'</div>').join('')}
-makeGrid('v1grid',v1);makeGrid('v2grid',v2);makeGrid('v3grid',v3);makeGrid('v4grid',v4);makeGrid('allv1',v1);makeGrid('allv2',v2);makeGrid('allv3',v3.concat(v4));
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+const V={
+u1:[['presenter','🎤'],['performer','🎭'],['comedian','😂'],['clown','🤡'],['puppeteer','🪆'],['sound editor','🎧'],['stunt performer','🤸'],['animator','🎨'],['writer','✍️'],['costume designer','👗'],['make-up artist','💄'],['camera operator','📹']],
+u2:[['antennae','🦋'],['beak','🐦'],['flippers','🐧'],['paws','🐾'],['horns','🦏'],['scales','🐟'],['spines','🦔'],['whiskers','🐱']],
+u3:[['travel by train','🚆'],['catch a bus','🚌'],['get off','🚏'],['pack my suitcase','🧳'],['take a seat','💺'],['passport','🛂'],['guidebook','📖'],['medicine','💊'],['umbrella','☂️'],['suitcase','🧳'],['raincoat','🧥'],['charger','🔌'],['flip-flops','🩴'],['pillow','🛏️'],['washbag','🧼'],['toothbrush','🪥'],['soap','🧴']]
+};
+let data=JSON.parse(localStorage.getItem('tt7data')||'{"xp":0,"correct":0,"games":0}');
+
+function save(){localStorage.setItem('tt7data',JSON.stringify(data));updateStats()}
+function addXP(n){data.xp+=n;data.correct++;save();speak('Correct!');}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});updateStats()}
+function openUnit(id){showPage('units');setTimeout(()=>document.getElementById(id).scrollIntoView({behavior:'smooth'}),100)}
 function speak(t){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.82;speechSynthesis.speak(u)}}
-function mc(b,c){b.classList.remove('correct','wrong');if(c){b.classList.add('correct');speak('Correct!')}else{b.classList.add('wrong');speak('Try again!')}}
+function cardHTML(w,e){return '<div class="wordcard" onclick="speak('+JSON.stringify(w)+');addXP(1)"><span class="pic">'+e+'</span><span class="word">'+w+'</span><span class="mini">🔊 Listen</span></div>'}
+function makeGrid(id,arr){document.getElementById(id).innerHTML=arr.map(x=>cardHTML(x[0],x[1])).join('')}
+makeGrid('v1grid',V.u1);makeGrid('v2grid',V.u2);makeGrid('v3grid',V.u3);makeGrid('allv1',V.u1);makeGrid('allv2',V.u2);makeGrid('allv3',V.u3);
+
+function mc(b,c){b.classList.remove('correct','wrong');if(c){b.classList.add('correct');addXP(10)}else{b.classList.add('wrong');speak('Try again!')}}
+function updateStats(){
+let level=data.xp<50?'English Explorer':data.xp<150?'English Star':data.xp<300?'Team Together Champion':'English Master';
+let pct=Math.min(100,(data.xp%300)/3);
+['topStats','homeStats','progressStats'].forEach(id=>{let el=document.getElementById(id);if(el)el.innerHTML='<span class="stat">⭐ '+data.xp+' XP</span><span class="stat">✅ '+data.correct+' correct</span>'});
+['xpFill','progressFill'].forEach(id=>{let el=document.getElementById(id);if(el)el.style.width=pct+'%'});
+document.getElementById('levelText').textContent='🏅 '+level;
+document.getElementById('progressLevel').textContent='🏅 '+level;
+document.getElementById('badges').innerHTML=(data.xp>=10?'<span class="badge">🔊 First Practice</span>':'')+(data.xp>=50?'<span class="badge">⭐ 50 XP</span>':'')+(data.xp>=150?'<span class="badge">🏆 English Star</span>':'')+(data.xp<10?'<p>Play a game or practise vocabulary to unlock badges.</p>':'');
+}
 let words=[];
 function addWord(w){words.push(w);document.getElementById('sentence').textContent=words.join(' ')}
 function clearSentence(){words=[];document.getElementById('sentence').textContent='';document.getElementById('sentenceResult').textContent=''}
-function checkSentence(){let ok=words.join(' ')==='She is a presenter';document.getElementById('sentenceResult').textContent=ok?'🎉 Excellent!':'❌ Try again.';document.getElementById('sentenceResult').style.color=ok?'green':'red'}
-function saveWriting(){let a=document.getElementById('topic').value.trim(),b=document.getElementById('writing').value.trim();document.getElementById('writingResult').textContent=a&&b?'✓ Great! Your writing practice is complete.':'Please complete the topic and paragraph.'}
-function saveProgress(){let a=[...document.querySelectorAll('#progress input[type=checkbox]')],n=a.filter(x=>x.checked).length;document.getElementById('progressText').textContent='Progress: '+Math.round(n/a.length*100)+'%';localStorage.setItem('tt7progress',n)}
-(function(){let n=Number(localStorage.getItem('tt7progress')||0),a=[...document.querySelectorAll('#progress input[type=checkbox]')];a.slice(0,n).forEach(x=>x.checked=true);document.getElementById('progressText').textContent='Progress: '+Math.round(n/a.length*100)+'%'})();
-</script></body></html>
+function checkSentence(){let ok=words.join(' ')==='She is a presenter';document.getElementById('sentenceResult').textContent=ok?'🎉 Excellent! +20 XP':'❌ Try again.';if(ok)addXP(20)}
+function saveWriting(){let a=document.getElementById('topic').value.trim(),b=document.getElementById('writing').value.trim();document.getElementById('writingResult').textContent=a&&b?'✓ Great! Keep practising your English.':'Please complete the topic and paragraph.'}
+
+let matchSelected=null,matchCount=0;
+function setupMatch(){let pairs=[['🎤','presenter'],['😂','comedian'],['🐧','flippers'],['🧳','suitcase']];let items=[];pairs.forEach((p,i)=>{items.push({v:p[0],id:i});items.push({v:p[1],id:i})});items.sort(()=>Math.random()-.5);document.getElementById('matchGame').innerHTML=items.map((x,i)=>'<button class="match-card" data-id="'+x.id+'" onclick="pickMatch(this)">'+x.v+'</button>').join('')}
+function pickMatch(b){if(b.classList.contains('done'))return;if(!matchSelected){matchSelected=b;b.classList.add('selected');return}if(matchSelected===b)return;if(matchSelected.dataset.id===b.dataset.id){b.classList.add('done');matchSelected.classList.add('done');matchCount++;addXP(15);document.getElementById('matchResult').textContent=matchCount===4?'🎉 Perfect match! +15 XP each':'Correct match!'}else{b.classList.add('wrong');matchSelected.classList.add('wrong');speak('Try again!');setTimeout(()=>{b.classList.remove('wrong');matchSelected.classList.remove('wrong','selected')},500)}matchSelected=null}
+
+let speedTimer, speedTime=30, speedScore=0, speedIndex=0;
+const speedQ=[['Which job makes people laugh?',['comedian','writer','presenter'],'comedian'],['I have lived here ___ 2020.',['for','since'],'since'],['Which animal has flippers?',['penguin','camel','cat'],'penguin'],['You ___ pack your passport.',['must','might'],'must'],['Which means leave a bus?',['get off','catch a bus'],'get off']];
+function startSpeed(){clearInterval(speedTimer);speedTime=30;speedScore=0;speedIndex=0;document.getElementById('timer').textContent=30;nextSpeed();speedTimer=setInterval(()=>{speedTime--;document.getElementById('timer').textContent=speedTime;if(speedTime<=0){clearInterval(speedTimer);document.getElementById('speedQ').textContent='⏰ Time!';document.getElementById('speedOptions').innerHTML='';document.getElementById('speedScore').textContent='Final score: '+speedScore+' points'}} ,1000)}
+function nextSpeed(){let q=speedQ[speedIndex%speedQ.length];document.getElementById('speedQ').textContent=q[0];document.getElementById('speedOptions').innerHTML=q[1].map(x=>'<button class="option" onclick="speedAnswer('+JSON.stringify(x)+','+JSON.stringify(q[2])+')">'+x+'</button>').join('')}
+function speedAnswer(a,c){if(a===c){speedScore+=10;addXP(10);speedIndex++;nextSpeed()}else speak('Try again!')}
+function saveChecklist(){let a=[...document.querySelectorAll('#progress input')];localStorage.setItem('tt7check',JSON.stringify(a.map(x=>x.checked)))}
+(function(){let a=JSON.parse(localStorage.getItem('tt7check')||'[]');document.querySelectorAll('#progress input').forEach((x,i)=>x.checked=!!a[i]);setupMatch();updateStats()})()
+</script>
+</body></html>
