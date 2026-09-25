@@ -1,10 +1,1148 @@
-<!DOCTYPE html>
-<html>
+@@ -3,196 +3,228 @@
 <head>
-    <title>TEST</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Together Oman 7A – Interactive English</title>
+<title>Team Together Oman 7A</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#eef7ff,#f8f2ff);
+    color:#24324a;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#24324a;
+}
+
+header{
+    background:linear-gradient(135deg,#2457a6,#6d3fb8);
+    color:white;
+    padding:28px 18px;
+    text-align:center;
+background:linear-gradient(135deg,#2457a6,#7042b8);
+color:white;
+text-align:center;
+padding:35px 15px;
+}
+
+header h1{
+margin:0;
+font-size:32px;
+}
+
+header p{
+font-size:17px;
+margin:10px 0 0;
+}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0;font-size:16px}
+
+nav{
+    background:white;
+    padding:12px;
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    box-shadow:0 2px 10px #0001;
+    position:sticky;
+    top:0;
+    z-index:10;
+background:white;
+padding:12px;
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav button{
+    border:0;
+    padding:10px 15px;
+    border-radius:20px;
+    background:#edf2ff;
+    color:#2457a6;
+    font-weight:bold;
+    cursor:pointer;
+border:0;
+background:#edf2ff;
+color:#2457a6;
+padding:11px 17px;
+border-radius:20px;
+font-weight:bold;
+cursor:pointer;
+}
+
+nav button:hover{
+background:#2457a6;
+color:white;
+}
+nav button:hover{background:#2457a6;color:white}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px 50px;
+max-width:1100px;
+margin:auto;
+padding:25px 15px 50px;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 5px 20px #0001;
+background:white;
+border-radius:20px;
+padding:35px 20px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.hero h2{
+color:#2457a6;
+font-size:28px;
+}
+.hero h2{font-size:28px;color:#2457a6}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-top:22px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+margin-top:22px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 4px 15px #0001;
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+color:#7042b8;
+}
+
+.action{
+background:#2457a6;
+color:white;
+border:0;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.action:hover{
+background:#193f7b;
+}
+.card h3{color:#6d3fb8}
+
+.unit{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:22px;
+    box-shadow:0 4px 15px #0001;
+background:white;
+padding:25px;
+margin-top:20px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.unit h2{
+color:#2457a6;
+}
+.unit h2{color:#2457a6}
+
+.lesson{
+    background:#f7f9ff;
+    border-left:6px solid #6d3fb8;
+    padding:18px;
+    border-radius:12px;
+    margin:14px 0;
+background:#f7f9ff;
+border-left:6px solid #7042b8;
+padding:20px;
+margin:15px 0;
+border-radius:10px;
+}
+
+.word-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:12px;
+}
+
+.word{
+    background:white;
+    border:2px solid #dce5ff;
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+background:white;
+border:2px solid #dce5ff;
+border-radius:12px;
+padding:15px;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
+}
+.word:hover{transform:translateY(-3px);background:#edf2ff}
+
+.activity{
+    background:white;
+    border-radius:18px;
+    padding:24px;
+    margin:20px 0;
+    box-shadow:0 3px 14px #0001;
+.word:hover{
+background:#edf2ff;
+transform:translateY(-2px);
+}
+.activity h3{color:#2457a6}
+
+.option{
+    display:block;
+    width:100%;
+    text-align:left;
+    margin:8px 0;
+    padding:12px;
+    border:1px solid #ccd7ef;
+    border-radius:10px;
+    background:white;
+    cursor:pointer;
+.activity{
+background:white;
+padding:25px;
+margin-top:20px;
+border-radius:18px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+.option:hover{background:#edf2ff}
+
+.correct{background:#c9f7d5!important}
+.wrong{background:#ffd1d1!important}
+.activity h3{
+color:#2457a6;
+}
+
+.action{
+    background:#2457a6;
+    color:white;
+    border:0;
+    border-radius:10px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:bold;
+.option{
+display:block;
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ccd7ef;
+border-radius:10px;
+background:white;
+text-align:left;
+cursor:pointer;
+}
+.action:hover{background:#193f7b}
+
+.score{
+    font-size:20px;
+    font-weight:bold;
+    margin-top:15px;
+.option:hover{
+background:#edf2ff;
+}
+
+.match-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+.correct{
+background:#c9f7d5!important;
+}
+.match-item{
+    padding:15px;
+    background:#f2f5ff;
+    border-radius:10px;
+    cursor:pointer;
+    text-align:center;
+
+.wrong{
+background:#ffd1d1!important;
+}
+
+footer{
+    text-align:center;
+    background:#202b43;
+    color:white;
+    padding:20px;
+.score{
+font-weight:bold;
+font-size:19px;
+margin-top:15px;
+}
+
+input{
+    padding:11px;
+    border:1px solid #ccd7ef;
+    border-radius:8px;
+    width:100%;
+    max-width:500px;
+    margin:5px 0;
+input,textarea{
+width:100%;
+padding:12px;
+margin:7px 0;
+border:1px solid #ccd7ef;
+border-radius:10px;
+font-family:Arial;
+}
+
+textarea{
+    width:100%;
+    min-height:130px;
+    padding:12px;
+    border:1px solid #ccd7ef;
+    border-radius:10px;
+min-height:130px;
+}
+
+.hidden{display:none}
+footer{
+background:#202b43;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+@media(max-width:600px){
+    header h1{font-size:23px}
+    .hero,.unit,.activity{padding:18px}
+header h1{font-size:24px}
+.hero,.unit,.activity{padding:18px}
+}
+</style>
 </head>
-<body>
-    <h1>MY WEBSITE IS WORKING</h1>
-    <p>Team Together Oman 7A</p>
-</body>
-</html>
+@@ -201,7 +233,7 @@ textarea{
+
+<header>
+<h1>Team Together Oman 7A</h1>
+<p>Interactive English Learning Website – Grade 7</p>
+<p>Interactive English Learning Website</p>
+</header>
+
+<nav>
+@@ -215,486 +247,493 @@ textarea{
+
+<div class="container">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="hero">
+<h2>Welcome to Team Together Oman 7A!</h2>
+<p>Learn English through vocabulary, grammar, reading, writing, listening and interactive games.</p>
+<p><strong>Choose a section above and start learning!</strong></p>
+<p>Interactive English learning for Grade 7 students.</p>
+<p>Choose a section and start learning!</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>📚 Course Units</h3>
+<p>Explore the units and lessons of the Grade 7A course.</p>
+<button class="action" onclick="showPage('units')">Explore Units</button>
+<h3>📚 Units</h3>
+<p>Explore the English course units and lessons.</p>
+<button class="action" onclick="showPage('units')">Explore</button>
+</div>
+
+<div class="card">
+<h3>🧠 Vocabulary</h3>
+<p>Learn and practise important vocabulary through interactive activities.</p>
+<p>Learn and practise new English words.</p>
+<button class="action" onclick="showPage('vocabulary')">Practise</button>
+</div>
+
+<div class="card">
+<h3>✏️ Grammar</h3>
+<p>Review grammar rules and test your understanding.</p>
+<p>Practise English grammar interactively.</p>
+<button class="action" onclick="showPage('grammar')">Grammar</button>
+</div>
+
+<div class="card">
+<h3>🎮 Games</h3>
+<p>Challenge yourself with quick English games.</p>
+<p>Learn English through fun games.</p>
+<button class="action" onclick="showPage('games')">Play</button>
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- UNITS -->
+<section id="units" class="page">
+
+<div class="hero">
+<h2>📚 Grade 7A Units</h2>
+<p>Interactive learning organised by unit and lesson.</p>
+<p>Team Together Oman – Grade 7A</p>
+</div>
+
+<div class="unit">
+
+<h2>Unit 1 – Entertainment</h2>
+
+<div class="lesson">
+<h3>Lesson 1 – Entertainment Jobs</h3>
+<p>Learn vocabulary connected with jobs in entertainment and practise describing what people do.</p>
+
+<h3>Lesson 1 – Jobs in Entertainment</h3>
+
+<p>Learn vocabulary about different jobs in the entertainment industry.</p>
+
+<div class="word-grid">
+<div class="word" onclick="speak('presenter')">Presenter</div>
+<div class="word" onclick="speak('performer')">Performer</div>
+<div class="word" onclick="speak('comedian')">Comedian</div>
+<div class="word" onclick="speak('clown')">Clown</div>
+<div class="word" onclick="speak('puppeteer')">Puppeteer</div>
+<div class="word" onclick="speak('sound editor')">Sound editor</div>
+<div class="word" onclick="speak('stunt performer')">Stunt performer</div>
+<div class="word" onclick="speak('animator')">Animator</div>
+<div class="word" onclick="speak('writer')">Writer</div>
+<div class="word" onclick="speak('costume designer')">Costume designer</div>
+<div class="word" onclick="speak('make-up artist')">Make-up artist</div>
+<div class="word" onclick="speak('camera operator')">Camera operator</div>
+
+<div class="word" onclick="speak('presenter')">🎤 Presenter</div>
+
+<div class="word" onclick="speak('performer')">🎭 Performer</div>
+
+<div class="word" onclick="speak('comedian')">😂 Comedian</div>
+
+<div class="word" onclick="speak('clown')">🤡 Clown</div>
+
+<div class="word" onclick="speak('puppeteer')">🧸 Puppeteer</div>
+
+<div class="word" onclick="speak('sound editor')">🎧 Sound editor</div>
+
+<div class="word" onclick="speak('stunt performer')">🎬 Stunt performer</div>
+
+<div class="word" onclick="speak('animator')">🎨 Animator</div>
+
+<div class="word" onclick="speak('writer')">✍️ Writer</div>
+
+<div class="word" onclick="speak('costume designer')">👗 Costume designer</div>
+
+<div class="word" onclick="speak('make-up artist')">💄 Make-up artist</div>
+
+<div class="word" onclick="speak('camera operator')">📹 Camera operator</div>
+
+</div>
+
+</div>
+
+<div class="lesson">
+<h3>Lesson 2</h3>
+<p>Continue exploring entertainment, communication and language through the course activities.</p>
+<p>Continue learning and practising English through the entertainment topic.</p>
+</div>
+
+</div>
+
+<div class="unit">
+
+<h2>More Units</h2>
+<p>Additional units can be opened here as they are added from the course book.</p>
+
+<div class="cards">
+
+<div class="card">
+<h3>Unit 2</h3>
+<p>Interactive lessons and activities.</p>
+<p>Lessons and interactive activities.</p>
+</div>
+
+<div class="card">
+<h3>Unit 3</h3>
+<p>Interactive lessons and activities.</p>
+<p>Lessons and interactive activities.</p>
+</div>
+
+<div class="card">
+<h3>Unit 4</h3>
+<p>Interactive lessons and activities.</p>
+</div>
+<div class="card">
+<h3>Unit 5</h3>
+<p>Interactive lessons and activities.</p>
+<p>Lessons and interactive activities.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- VOCABULARY -->
+<section id="vocabulary" class="page">
+
+<div class="hero">
+<h2>🧠 Vocabulary Practice</h2>
+<p>Click a word to hear its pronunciation.</p>
+<h2>🧠 Vocabulary</h2>
+<p>Click any word to hear it.</p>
+</div>
+
+<div class="activity">
+<h3>Activity 1 – Entertainment Jobs</h3>
+
+<h3>Entertainment Jobs</h3>
+
+<div class="word-grid">
+<div class="word" onclick="speak('presenter')">🎤 Presenter</div>
+<div class="word" onclick="speak('performer')">🎭 Performer</div>
+<div class="word" onclick="speak('comedian')">😂 Comedian</div>
+<div class="word" onclick="speak('clown')">🤡 Clown</div>
+<div class="word" onclick="speak('puppeteer')">🧸 Puppeteer</div>
+<div class="word" onclick="speak('animator')">🎨 Animator</div>
+<div class="word" onclick="speak('writer')">✍️ Writer</div>
+<div class="word" onclick="speak('camera operator')">📹 Camera operator</div>
+<div class="word" onclick="speak('costume designer')">👗 Costume designer</div>
+<div class="word" onclick="speak('make-up artist')">💄 Make-up artist</div>
+<div class="word" onclick="speak('sound editor')">🎧 Sound editor</div>
+<div class="word" onclick="speak('stunt performer')">🎬 Stunt performer</div>
+
+<div class="word" onclick="speak('presenter')">Presenter</div>
+<div class="word" onclick="speak('performer')">Performer</div>
+<div class="word" onclick="speak('comedian')">Comedian</div>
+<div class="word" onclick="speak('clown')">Clown</div>
+<div class="word" onclick="speak('puppeteer')">Puppeteer</div>
+<div class="word" onclick="speak('sound editor')">Sound editor</div>
+<div class="word" onclick="speak('stunt performer')">Stunt performer</div>
+<div class="word" onclick="speak('animator')">Animator</div>
+<div class="word" onclick="speak('writer')">Writer</div>
+<div class="word" onclick="speak('costume designer')">Costume designer</div>
+<div class="word" onclick="speak('make-up artist')">Make-up artist</div>
+<div class="word" onclick="speak('camera operator')">Camera operator</div>
+
+</div>
+
+</div>
+
+<div class="activity">
+<h3>Activity 2 – Match the Job to the Description</h3>
+
+<p><strong>1.</strong> This person writes stories and scripts.</p>
+<button class="option" onclick="answer(this,false)">Presenter</button>
+<button class="option" onclick="answer(this,true)">Writer</button>
+<button class="option" onclick="answer(this,false)">Clown</button>
+
+<p><strong>2.</strong> This person operates a camera.</p>
+<button class="option" onclick="answer(this,true)">Camera operator</button>
+<button class="option" onclick="answer(this,false)">Comedian</button>
+<button class="option" onclick="answer(this,false)">Animator</button>
+<h3>🎯 Match the Description</h3>
+
+<p><strong>3.</strong> This person makes people laugh.</p>
+<button class="option" onclick="answer(this,false)">Sound editor</button>
+<button class="option" onclick="answer(this,true)">Comedian</button>
+<button class="option" onclick="answer(this,false)">Writer</button>
+<p>Who makes people laugh?</p>
+
+<p><strong>4.</strong> This person designs clothes for performers.</p>
+<button class="option" onclick="answer(this,true)">Costume designer</button>
+<button class="option" onclick="answer(this,false)">Presenter</button>
+<button class="option" onclick="answer(this,false)">Puppeteer</button>
+<button class="option" onclick="check(this,true)">Comedian</button>
+<button class="option" onclick="check(this,false)">Writer</button>
+<button class="option" onclick="check(this,false)">Presenter</button>
+
+<div id="vscore" class="score">Score: 0</div>
+</div>
+<p>Who operates a camera?</p>
+
+<div class="activity">
+<h3>Activity 3 – Complete the Sentence</h3>
+<button class="option" onclick="check(this,true)">Camera operator</button>
+<button class="option" onclick="check(this,false)">Clown</button>
+<button class="option" onclick="check(this,false)">Animator</button>
+
+<p>The person who works with a camera is a __________.</p>
+<button class="option" onclick="answerFill(this,true,'v1')">camera operator</button>
+<button class="option" onclick="answerFill(this,false,'v1')">comedian</button>
+<button class="option" onclick="answerFill(this,false,'v1')">writer</button>
+<p>Who designs clothes?</p>
+
+<p>The person who designs clothes is a __________.</p>
+<button class="option" onclick="answerFill(this,false,'v2')">presenter</button>
+<button class="option" onclick="answerFill(this,true,'v2')">costume designer</button>
+<button class="option" onclick="answerFill(this,false,'v2')">clown</button>
+<button class="option" onclick="check(this,true)">Costume designer</button>
+<button class="option" onclick="check(this,false)">Comedian</button>
+<button class="option" onclick="check(this,false)">Writer</button>
+
+<div id="v1"></div>
+<div id="v2"></div>
+</div>
+
+</section>
+
+
+<!-- GRAMMAR -->
+<section id="grammar" class="page">
+
+<div class="hero">
+<h2>✏️ Grammar Practice</h2>
+<p>Read the rule, then test yourself.</p>
+<h2>✏️ Grammar Challenge</h2>
+<p>Choose the correct answer.</p>
+</div>
+
+<div class="activity">
+<h3>Grammar Challenge</h3>
+
+<p><strong>Choose the correct answer.</strong></p>
+<p><strong>1.</strong> She _____ TV every evening.</p>
+
+<p>1. She _____ TV every evening.</p>
+<button class="option" onclick="grammarAnswer(this,false)">watch</button>
+<button class="option" onclick="grammarAnswer(this,true)">watches</button>
+<button class="option" onclick="grammarAnswer(this,false)">watching</button>
+<button class="option" onclick="check(this,false)">watch</button>
+<button class="option" onclick="check(this,true)">watches</button>
+<button class="option" onclick="check(this,false)">watching</button>
+
+<p>2. They _____ to the cinema yesterday.</p>
+<button class="option" onclick="grammarAnswer(this,true)">went</button>
+<button class="option" onclick="grammarAnswer(this,false)">go</button>
+<button class="option" onclick="grammarAnswer(this,false)">going</button>
+<p><strong>2.</strong> They _____ to the cinema yesterday.</p>
+
+<p>3. He is _____ a film now.</p>
+<button class="option" onclick="grammarAnswer(this,false)">watch</button>
+<button class="option" onclick="grammarAnswer(this,false)">watches</button>
+<button class="option" onclick="grammarAnswer(this,true)">watching</button>
+<button class="option" onclick="check(this,true)">went</button>
+<button class="option" onclick="check(this,false)">go</button>
+<button class="option" onclick="check(this,false)">going</button>
+
+<p>4. We _____ music at the moment.</p>
+<button class="option" onclick="grammarAnswer(this,true)">are listening to</button>
+<button class="option" onclick="grammarAnswer(this,false)">listen</button>
+<button class="option" onclick="grammarAnswer(this,false)">listened</button>
+<p><strong>3.</strong> He is _____ a film now.</p>
+
+<button class="option" onclick="check(this,true)">watching</button>
+<button class="option" onclick="check(this,false)">watch</button>
+<button class="option" onclick="check(this,false)">watched</button>
+
+<div id="gscore" class="score">Score: 0</div>
+</div>
+
+</section>
+
+
+<!-- GAMES -->
+<section id="games" class="page">
+
+<div class="hero">
+<h2>🎮 English Games</h2>
+<p>Learn while you play!</p>
+<h2>🎮 Games</h2>
+<p>Test your English!</p>
+</div>
+
+<div class="activity">
+<h3>🎯 Game 1 – Guess the Job</h3>
+
+<p id="clue"><strong>Clue:</strong> I make people laugh.</p>
+<h3>🎯 Guess the Job</h3>
+
+<button class="option" onclick="guessJob(this,'comedian')">Comedian</button>
+<button class="option" onclick="guessJob(this,'writer')">Writer</button>
+<button class="option" onclick="guessJob(this,'presenter')">Presenter</button>
+<p id="clue">I make people laugh.</p>
+
+<div id="gameResult" class="score"></div>
+<button class="action" onclick="nextClue()">Next Question</button>
+</div>
+<button class="option" onclick="guess(this,'Comedian')">Comedian</button>
+<button class="option" onclick="guess(this,'Writer')">Writer</button>
+<button class="option" onclick="guess(this,'Presenter')">Presenter</button>
+
+<div class="activity">
+<h3>⚡ Game 2 – Fast Choice</h3>
+<p>Which word is connected with filming?</p>
+<div id="result" class="score"></div>
+
+<button class="option" onclick="fastChoice(this,false)">Writer</button>
+<button class="option" onclick="fastChoice(this,true)">Camera operator</button>
+<button class="option" onclick="fastChoice(this,false)">Comedian</button>
+<button class="action" onclick="newQuestion()">Next Question</button>
+
+<div id="fastResult" class="score"></div>
+</div>
+
+<div class="activity">
+<h3>🔤 Game 3 – Build the Sentence</h3>
+<p>Put the words in the correct order:</p>
+
+<h3>🔤 Build the Sentence</h3>
+
+<p>Click the words in the correct order.</p>
+
+<div class="word-grid">
+<div class="word" onclick="addWord(this)">is</div>
+<div class="word" onclick="addWord(this)">a</div>
+<div class="word" onclick="addWord(this)">presenter</div>
+<div class="word" onclick="addWord(this)">She</div>
+
+<div class="word" onclick="add('She')">She</div>
+<div class="word" onclick="add('is')">is</div>
+<div class="word" onclick="add('a')">a</div>
+<div class="word" onclick="add('presenter')">presenter</div>
+
+</div>
+
+<p><strong>Your sentence:</strong></p>
+<div id="sentenceBox" style="min-height:45px;border:2px dashed #ccd7ef;border-radius:10px;padding:12px"></div>
+
+<div id="sentence"
+style="padding:15px;border:2px dashed #ccd7ef;border-radius:10px;min-height:50px">
+</div>
+
+<br>
+
+<button class="action" onclick="checkSentence()">Check</button>
+
+<button class="action" onclick="clearSentence()">Clear</button>
+
+<div id="sentenceResult" class="score"></div>
+
+</div>
+
+</section>
+
+
+<!-- PRACTICE -->
+<section id="practice" class="page">
+
+<div class="hero">
+
+<h2>📝 Practice Zone</h2>
+<p>Use English creatively.</p>
+
+<p>Write and practise your English.</p>
+
+</div>
+
+<div class="activity">
+<h3>✍️ Describe an Entertainment Job</h3>
+<p>Choose one job and write 2–3 sentences about it.</p>
+
+<input id="jobInput" placeholder="Write the job here...">
+<textarea id="writingInput" placeholder="Write your sentences here..."></textarea>
+<h3>✍️ Writing Practice</h3>
+
+<p>Choose an entertainment job and describe it.</p>
+
+<input id="job" placeholder="Entertainment job">
+
+<textarea id="writing"
+placeholder="Write 2–3 sentences..."></textarea>
+
+<button class="action" onclick="saveWriting()">Check My Writing</button>
+
+<button class="action" onclick="saveWriting()">Save Practice</button>
+<div id="writingResult" class="score"></div>
+
+</div>
+
+<div class="activity">
+
+<h3>💬 Speaking Practice</h3>
+<p>Choose a question and answer it aloud.</p>
+
+<p><strong>1.</strong> What kind of entertainment do you enjoy?</p>
+<p><strong>2.</strong> What is your favourite TV programme?</p>
+<p><strong>3.</strong> Which entertainment job would you like to do? Why?</p>
+<p>Answer these questions aloud:</p>
+
+<button class="action" onclick="speak('Which entertainment job would you like to do? Why?')">
+🔊 Hear the Question
+<p>What kind of entertainment do you enjoy?</p>
+
+<p>What is your favourite TV programme?</p>
+
+<p>Which entertainment job would you like to do?</p>
+
+<button class="action"
+onclick="speak('Which entertainment job would you like to do?')">
+🔊 Hear Question
+</button>
+</div>
+
+<div class="activity">
+<h3>📖 My Learning</h3>
+<p>Write one new word you learned today.</p>
+<input id="newWord" placeholder="New word">
+<button class="action" onclick="saveWord()">Save Word</button>
+<div id="savedWord" class="score"></div>
+</div>
+
+</section>
+
+</div>
+
+
+<footer>
+<p>Team Together Oman 7A – Interactive English Learning</p>
+<p>Grade 7 • English</p>
+
+<p>Team Together Oman 7A</p>
+<p>Interactive English Learning Website</p>
+
+</footer>
+
+
+<script>
+
+function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+
+document.querySelectorAll('.page')
+.forEach(page=>page.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+window.scrollTo(0,0);
+
+}
+
+
+function speak(text){
+    if('speechSynthesis' in window){
+        speechSynthesis.cancel();
+        const utterance=new SpeechSynthesisUtterance(text);
+        utterance.lang='en-GB';
+        utterance.rate=.8;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+let vocabScore=0;
+
+function answer(btn,correct){
+    if(btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+
+    if(correct){
+        btn.classList.add('correct');
+        vocabScore++;
+        document.getElementById('vscore').textContent='Score: '+vocabScore;
+        speak('Correct!');
+    }else{
+        btn.classList.add('wrong');
+        speak('Try again!');
+    }
+}
+
+function answerFill(btn,correct,id){
+    if(correct){
+        btn.classList.add('correct');
+        document.getElementById(id).textContent='✓ Correct!';
+        document.getElementById(id).style.color='green';
+    }else{
+        btn.classList.add('wrong');
+        document.getElementById(id).textContent='✗ Try again!';
+        document.getElementById(id).style.color='red';
+    }
+}
+
+let grammarScore=0;
+
+function grammarAnswer(btn,correct){
+    if(btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+
+    if(correct){
+        btn.classList.add('correct');
+        grammarScore++;
+        document.getElementById('gscore').textContent='Score: '+grammarScore;
+        speak('Correct!');
+    }else{
+        btn.classList.add('wrong');
+        speak('Try again!');
+    }
+}
+
+const clues=[
+    ['I make people laugh.','comedian'],
+    ['I write stories and scripts.','writer'],
+    ['I work with a camera.','camera operator'],
+    ['I design clothes for performers.','costume designer'],
+    ['I present programmes.','presenter'],
+    ['I perform on stage.','performer']
+];
+
+let clueIndex=0;
+if('speechSynthesis' in window){
+
+speechSynthesis.cancel();
+
+let voice=new SpeechSynthesisUtterance(text);
+
+voice.lang='en-GB';
+
+function guessJob(btn,answer){
+    const result=document.getElementById('gameResult');
+voice.rate=.8;
+
+speechSynthesis.speak(voice);
+
+}
+
+    if(answer===clues[clueIndex][1]){
+        btn.classList.add('correct');
+        result.textContent='🎉 Correct!';
+        result.style.color='green';
+        speak('Correct!');
+    }else{
+        btn.classList.add('wrong');
+        result.textContent='❌ Try again!';
+        result.style.color='red';
+        speak('Try again!');
+    }
+}
+
+function nextClue(){
+    clueIndex=(clueIndex+1)%clues.length;
+
+    document.getElementById('clue').innerHTML=
+        '<strong>Clue:</strong> '+clues[clueIndex][0];
+function check(button,correct){
+
+    document.querySelectorAll('#games .option').forEach(b=>{
+        b.classList.remove('correct','wrong');
+    });
+if(correct){
+
+button.classList.add('correct');
+
+button.textContent='✓ '+button.textContent;
+
+}else{
+
+button.classList.add('wrong');
+
+    document.getElementById('gameResult').textContent='';
+}
+
+function fastChoice(btn,correct){
+    const result=document.getElementById('fastResult');
+}
+
+
+const questions=[
+
+['I write stories and scripts.','Writer'],
+
+['I operate a camera.','Camera operator'],
+
+['I design clothes for performers.','Costume designer'],
+
+['I present programmes.','Presenter']
+
+];
+
+let q=0;
+
+
+function guess(button,answer){
+
+if(answer===questions[q][1]){
+
+button.classList.add('correct');
+
+document.getElementById('result').textContent='🎉 Correct!';
+
+}else{
+
+button.classList.add('wrong');
+
+document.getElementById('result').textContent='❌ Try again!';
+
+}
+
+}
+
+
+function newQuestion(){
+
+q++;
+
+if(q>=questions.length){
+
+q=0;
+
+    if(correct){
+        btn.classList.add('correct');
+        result.textContent='🎉 Excellent!';
+        result.style.color='green';
+    }else{
+        btn.classList.add('wrong');
+        result.textContent='❌ Try again!';
+        result.style.color='red';
+    }
+}
+
+let sentence=[];
+document.getElementById('clue').textContent=questions[q][0];
+
+document.getElementById('result').textContent='';
+
+document.querySelectorAll('#games .option')
+.forEach(b=>b.classList.remove('correct','wrong'));
+
+function addWord(el){
+    sentence.push(el.textContent);
+    document.getElementById('sentenceBox').textContent=sentence.join(' ');
+}
+
+function clearSentence(){
+    sentence=[];
+    document.getElementById('sentenceBox').textContent='';
+    document.getElementById('sentenceResult').textContent='';
+
+let sentenceWords=[];
+
+
+function add(word){
+
+sentenceWords.push(word);
+
+document.getElementById('sentence')
+.textContent=sentenceWords.join(' ');
+
+}
+
+
+function checkSentence(){
+    const correct='She is a presenter';
+
+    if(sentence.join(' ')===correct){
+        document.getElementById('sentenceResult').textContent='🎉 Perfect sentence!';
+        document.getElementById('sentenceResult').style.color='green';
+    }else{
+        document.getElementById('sentenceResult').textContent='❌ Try again.';
+        document.getElementById('sentenceResult').style.color='red';
+    }
+if(sentenceWords.join(' ')==='She is a presenter'){
+
+document.getElementById('sentenceResult').textContent='🎉 Excellent!';
+
+}else{
+
+document.getElementById('sentenceResult').textContent='❌ Try again.';
+
+}
+
+function saveWriting(){
+    const job=document.getElementById('jobInput').value.trim();
+    const text=document.getElementById('writingInput').value.trim();
+}
+
+
+function clearSentence(){
+
+sentenceWords=[];
+
+document.getElementById('sentence').textContent='';
+
+document.getElementById('sentenceResult').textContent='';
+
+    if(job && text){
+        document.getElementById('writingResult').textContent='✓ Great! Your practice has been completed.';
+        document.getElementById('writingResult').style.color='green';
+    }else{
+        document.getElementById('writingResult').textContent='Please complete both boxes.';
+        document.getElementById('writingResult').style.color='red';
+    }
+}
+
+function saveWord(){
+    const word=document.getElementById('newWord').value.trim();
+
+    if(word){
+        document.getElementById('savedWord').textContent='⭐ Saved word: '+word;
+        speak(word);
+    }
+function saveWriting(){
+
+let job=document.getElementById('job').value.trim();
+
+let writing=document.getElementById('writing').value.trim();
+
+if(job && writing){
+
+document.getElementById('writingResult').textContent=
+'✓ Great! Your writing is ready.';
+
+}else{
+
+document.getElementById('writingResult').textContent=
+'Please complete both boxes.';
+
+}
+
+}
+
+</script>
