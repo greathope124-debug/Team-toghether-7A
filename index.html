@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><meta name="site-version" content="interactive-2026-09-26-fixed-js-1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Team Together Oman 7A – Interactive English</title>
 <style>
@@ -169,7 +169,7 @@ function speedAnswer(a,c){if(a===c){speedScore+=10;addXP(10);speedIndex++;nextSp
 function saveChecklist(){let a=[...document.querySelectorAll('#progress input')];localStorage.setItem('tt7check',JSON.stringify(a.map(x=>x.checked)))}
 (function(){let a=JSON.parse(localStorage.getItem('tt7check')||'[]');document.querySelectorAll('#progress input').forEach((x,i)=>x.checked=!!a[i]);setupMatch();updateStats()})()
 const sortItems=[['presenter','ent'],['comedian','ent'],['passport','travel'],['suitcase','travel'],['writer','ent'],['umbrella','travel']];
-function setupDrag(){const b=document.getElementById('dragItems');b.innerHTML=sortItems.map((x,i)=>'<span class="dragitem" draggable="true" id="drag'+i+'" data-type="'+x[1]+'" ondragstart="event.dataTransfer.setData(\\'text/plain\\',this.id)">'+x[0]+'</span>').join('')}
+function setupDrag(){const b=document.getElementById('dragItems');if(!b)return;b.innerHTML=sortItems.map((x,i)=>`<span class="dragitem" draggable="true" id="drag${i}" data-type="${x[1]}" ondragstart="event.dataTransfer.setData('text/plain',this.id)">${x[0]}</span>`).join('')}
 function dropSort(e,t){e.preventDefault();const id=e.dataTransfer.getData('text/plain'),el=document.getElementById(id);if(!el)return;if(el.dataset.type===t){e.currentTarget.appendChild(el);el.draggable=false;el.style.background='#d5f8dd';addXP(10);document.getElementById('dragFeedback').textContent='🎉 Correct!'}else{document.getElementById('dragFeedback').textContent='❌ Try another category.';speak('Try again!')}}
 let memOpen=[],memDone=0;
 function setupMemory(){const p=[['🎤','presenter'],['😂','comedian'],['🧳','suitcase'],['🪥','toothbrush'],['🐧','flippers'],['☂️','umbrella']],a=[];p.forEach((x,i)=>{a.push({v:x[0],id:i,t:'p'});a.push({v:x[1],id:i,t:'w'})});a.sort(()=>Math.random()-.5);document.getElementById('memoryGame').innerHTML=a.map(x=>'<button class="match-card" data-id="'+x.id+'" data-t="'+x.t+'" data-v="'+x.v+'" onclick="memoryPick(this)">❓</button>').join('')}
