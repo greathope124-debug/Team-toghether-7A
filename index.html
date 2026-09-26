@@ -134,7 +134,7 @@ u3:[['travel by train','🚆'],['catch a bus','🚌'],['get off','🚏'],['pack 
 let data={xp:0,correct:0};
 try{data=JSON.parse(localStorage.getItem('tt7data'))||data}catch(e){}
 function save(){localStorage.setItem('tt7data',JSON.stringify(data));updateStats()}
-function speak(t){if(window.speechSynthesis){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}}
+function speak(t){try{if(!('speechSynthesis' in window)){alert('Audio speech is not supported in this browser. Please open the site in Chrome.');return}const s=window.speechSynthesis;s.cancel();const u=new SpeechSynthesisUtterance(String(t));u.lang='en-US';u.rate=.8;u.pitch=1;const voices=s.getVoices();const v=voices.find(x=>/^en(-US|-GB)/i.test(x.lang));if(v)u.voice=v;u.onend=function(){console.log('Speech finished')};setTimeout(function(){s.speak(u)},80)}catch(e){console.error('Speech error',e)}}
 function addXP(n){data.xp+=n;data.correct++;save();awardBadge&&awardBadge()}
 function showPage(id){
  const p=document.getElementById(id);
