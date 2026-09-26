@@ -340,6 +340,7 @@ function initSite(){
 }
 window.addEventListener('error',function(e){console.error('Site error:',e.error||e.message)});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSite);else initSite();
+setTimeout(function(){try{makeGrid('v1grid',V.u1);makeGrid('v2grid',V.u2);makeGrid('v3grid',V.u3);makeGrid('allv1',V.u1);makeGrid('allv2',V.u2);makeGrid('allv3',V.u3)}catch(e){console.error(e)}},300);
 window.openUnit=openUnit;window.openLesson=openLesson;window.openWord=openWord;window.speak=speak;window.addXP=addXP;
 </script>
 <section id="wordPractice" class="page"><div class="hero"><h2>🗣️ Word Practice</h2><p>Listen, repeat and practise the word.</p></div><div id="wordPracticeBox"></div></section></body></html>
