@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="site-version" content="interactive-2026-09-26-fixed-js-1">
+<meta charset="UTF-8"><meta name="site-version" content="interactive-2026-09-26-clean-js">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Team Together Oman 7A – Interactive English</title>
 <style>
@@ -130,76 +130,69 @@ u1:[['presenter','🎤'],['performer','🎭'],['comedian','😂'],['clown','🤡
 u2:[['antennae','🦋'],['beak','🐦'],['flippers','🐧'],['paws','🐾'],['horns','🦏'],['scales','🐟'],['spines','🦔'],['whiskers','🐱']],
 u3:[['travel by train','🚆'],['catch a bus','🚌'],['get off','🚏'],['pack my suitcase','🧳'],['take a seat','💺'],['passport','🛂'],['guidebook','📖'],['medicine','💊'],['umbrella','☂️'],['suitcase','🧳'],['raincoat','🧥'],['charger','🔌'],['flip-flops','🩴'],['pillow','🛏️'],['washbag','🧼'],['toothbrush','🪥'],['soap','🧴']]
 };
-let data=JSON.parse(localStorage.getItem('tt7data')||'{"xp":0,"correct":0,"games":0}');
-
+let data={xp:0,correct:0};
+try{data=JSON.parse(localStorage.getItem('tt7data'))||data}catch(e){}
 function save(){localStorage.setItem('tt7data',JSON.stringify(data));updateStats()}
-function addXP(n){data.xp+=n;data.correct++;save();speak('Correct!');}
-function showPage(id){const target=document.getElementById(id);if(!target){console.warn('Page not found:',id);return}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));target.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});updateStats()}
-function openUnit(id){showPage(id==='u1'?'unit1':id==='u2'?'unit2':'unit3')}
-function speak(t){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.82;speechSynthesis.speak(u)}}
-function cardHTML(w,e){return '<div class="wordcard" onclick="speak('+JSON.stringify(w)+');addXP(1)"><span class="pic">'+e+'</span><span class="word">'+w+'</span><span class="mini">🔊 Listen</span></div>'}
-function makeGrid(id,arr){document.getElementById(id).innerHTML=arr.map(x=>cardHTML(x[0],x[1])).join('')}
-makeGrid('v1grid',V.u1);makeGrid('v2grid',V.u2);makeGrid('v3grid',V.u3);makeGrid('allv1',V.u1);makeGrid('allv2',V.u2);makeGrid('allv3',V.u3);
-
-function mc(b,c){b.classList.remove('correct','wrong');if(c){b.classList.add('correct');addXP(10)}else{b.classList.add('wrong');speak('Try again!')}}
-function updateStats(){
-let level=data.xp<50?'English Explorer':data.xp<150?'English Star':data.xp<300?'Team Together Champion':'English Master';
-let pct=Math.min(100,(data.xp%300)/3);
-['topStats','homeStats','progressStats'].forEach(id=>{let el=document.getElementById(id);if(el)el.innerHTML='<span class="stat">⭐ '+data.xp+' XP</span><span class="stat">✅ '+data.correct+' correct</span>'});
-['xpFill','progressFill'].forEach(id=>{let el=document.getElementById(id);if(el)el.style.width=pct+'%'});
-document.getElementById('levelText').textContent='🏅 '+level;
-document.getElementById('progressLevel').textContent='🏅 '+level;
-document.getElementById('badges').innerHTML=(data.xp>=10?'<span class="badge">🔊 First Practice</span>':'')+(data.xp>=50?'<span class="badge">⭐ 50 XP</span>':'')+(data.xp>=150?'<span class="badge">🏆 English Star</span>':'')+(data.xp<10?'<p>Play a game or practise vocabulary to unlock badges.</p>':'');
+function speak(t){if(window.speechSynthesis){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}}
+function addXP(n){data.xp+=n;data.correct++;save()}
+function showPage(id){
+ const p=document.getElementById(id);
+ if(!p)return;
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ p.classList.add('active');
+ window.scrollTo(0,0);
+ updateStats();
 }
-let words=[];
-function addWord(w){words.push(w);document.getElementById('sentence').textContent=words.join(' ')}
-function clearSentence(){words=[];document.getElementById('sentence').textContent='';document.getElementById('sentenceResult').textContent=''}
-function checkSentence(){let ok=words.join(' ')==='She is a presenter';document.getElementById('sentenceResult').textContent=ok?'🎉 Excellent! +20 XP':'❌ Try again.';if(ok)addXP(20)}
-function saveWriting(){let a=document.getElementById('topic').value.trim(),b=document.getElementById('writing').value.trim();document.getElementById('writingResult').textContent=a&&b?'✓ Great! Keep practising your English.':'Please complete the topic and paragraph.'}
-
-let matchSelected=null,matchCount=0;
-function setupMatch(){let pairs=[['🎤','presenter'],['😂','comedian'],['🐧','flippers'],['🧳','suitcase']];let items=[];pairs.forEach((p,i)=>{items.push({v:p[0],id:i});items.push({v:p[1],id:i})});items.sort(()=>Math.random()-.5);document.getElementById('matchGame').innerHTML=items.map((x,i)=>'<button class="match-card" data-id="'+x.id+'" onclick="pickMatch(this)">'+x.v+'</button>').join('')}
-function pickMatch(b){if(b.classList.contains('done'))return;if(!matchSelected){matchSelected=b;b.classList.add('selected');return}if(matchSelected===b)return;if(matchSelected.dataset.id===b.dataset.id){b.classList.add('done');matchSelected.classList.add('done');matchCount++;addXP(15);document.getElementById('matchResult').textContent=matchCount===4?'🎉 Perfect match! +15 XP each':'Correct match!'}else{b.classList.add('wrong');matchSelected.classList.add('wrong');speak('Try again!');setTimeout(()=>{b.classList.remove('wrong');matchSelected.classList.remove('wrong','selected')},500)}matchSelected=null}
-
-let speedTimer, speedTime=30, speedScore=0, speedIndex=0;
-const speedQ=[['Which job makes people laugh?',['comedian','writer','presenter'],'comedian'],['I have lived here ___ 2020.',['for','since'],'since'],['Which animal has flippers?',['penguin','camel','cat'],'penguin'],['You ___ pack your passport.',['must','might'],'must'],['Which means leave a bus?',['get off','catch a bus'],'get off']];
-function startSpeed(){clearInterval(speedTimer);speedTime=30;speedScore=0;speedIndex=0;document.getElementById('timer').textContent=30;nextSpeed();speedTimer=setInterval(()=>{speedTime--;document.getElementById('timer').textContent=speedTime;if(speedTime<=0){clearInterval(speedTimer);document.getElementById('speedQ').textContent='⏰ Time!';document.getElementById('speedOptions').innerHTML='';document.getElementById('speedScore').textContent='Final score: '+speedScore+' points'}} ,1000)}
-function nextSpeed(){let q=speedQ[speedIndex%speedQ.length];document.getElementById('speedQ').textContent=q[0];document.getElementById('speedOptions').innerHTML=q[1].map(x=>'<button class="option" onclick="speedAnswer('+JSON.stringify(x)+','+JSON.stringify(q[2])+')">'+x+'</button>').join('')}
-function speedAnswer(a,c){if(a===c){speedScore+=10;addXP(10);speedIndex++;nextSpeed()}else speak('Try again!')}
-function saveChecklist(){let a=[...document.querySelectorAll('#progress input')];localStorage.setItem('tt7check',JSON.stringify(a.map(x=>x.checked)))}
-(function(){let a=JSON.parse(localStorage.getItem('tt7check')||'[]');document.querySelectorAll('#progress input').forEach((x,i)=>x.checked=!!a[i]);setupMatch();updateStats()})()
-const sortItems=[['presenter','ent'],['comedian','ent'],['passport','travel'],['suitcase','travel'],['writer','ent'],['umbrella','travel']];
-function setupDrag(){const b=document.getElementById('dragItems');if(!b)return;b.innerHTML=sortItems.map((x,i)=>`<span class="dragitem" draggable="true" id="drag${i}" data-type="${x[1]}" ondragstart="event.dataTransfer.setData('text/plain',this.id)">${x[0]}</span>`).join('')}
-function dropSort(e,t){e.preventDefault();const id=e.dataTransfer.getData('text/plain'),el=document.getElementById(id);if(!el)return;if(el.dataset.type===t){e.currentTarget.appendChild(el);el.draggable=false;el.style.background='#d5f8dd';addXP(10);document.getElementById('dragFeedback').textContent='🎉 Correct!'}else{document.getElementById('dragFeedback').textContent='❌ Try another category.';speak('Try again!')}}
-let memOpen=[],memDone=0;
-function setupMemory(){const p=[['🎤','presenter'],['😂','comedian'],['🧳','suitcase'],['🪥','toothbrush'],['🐧','flippers'],['☂️','umbrella']],a=[];p.forEach((x,i)=>{a.push({v:x[0],id:i,t:'p'});a.push({v:x[1],id:i,t:'w'})});a.sort(()=>Math.random()-.5);document.getElementById('memoryGame').innerHTML=a.map(x=>'<button class="match-card" data-id="'+x.id+'" data-t="'+x.t+'" data-v="'+x.v+'" onclick="memoryPick(this)">❓</button>').join('')}
-function memoryPick(b){if(b.classList.contains('done')||b.classList.contains('selected'))return;b.classList.add('selected');b.textContent=b.dataset.v;memOpen.push(b);if(memOpen.length===2){const a=memOpen[0],c=memOpen[1];if(a.dataset.id===c.dataset.id&&a.dataset.t!==c.dataset.t){a.classList.add('done');c.classList.add('done');memDone++;addXP(15);document.getElementById('memoryFeedback').textContent=memDone===6?'🏆 Perfect!':'🎉 Match!';memOpen=[]}else{setTimeout(()=>{a.classList.remove('selected');c.classList.remove('selected');a.textContent='❓';c.textContent='❓';memOpen=[]},650)}}}
-const wheelChallenges=['🎤 Say a sentence with “presenter”.','⏰ Choose: for or since — “I have lived here ___ 2020.”','🦁 Which animal has flippers?','✈️ Name one thing you pack for a trip.','💬 Say “I am going to travel.”'];
-function spinWheel(){const w=document.getElementById('wheel');w.style.transform='rotate(1080deg)';setTimeout(()=>{w.style.transform='rotate(0deg)';document.getElementById('wheelQuestion').innerHTML='<h3>'+wheelChallenges[Math.floor(Math.random()*wheelChallenges.length)]+'</h3><button class="btn" onclick="addXP(15)">✓ I did it! +15 XP</button>'},1100)}
-setupDrag();setupMemory();
-const lessonFocus={
-u1:['Vocabulary: Jobs in entertainment','Dialogue and vocabulary practice','World of Wonder: Entertainment','Reading: My Muscat diary','Vocabulary and Grammar: Entertainment places + Present continuous for future arrangements','Project: Make a poster for a performance','English in action: Buying tickets','Literacy: Reading and writing practice','Writing: Create an advert','Over to you! Review and self-assessment'],
-u2:['Vocabulary: Animal body parts','Vocabulary and grammar practice','Reading and animal language','Reading: Folk tale','Vocabulary and Grammar: Animal verbs + first conditional','CLIL/Project: National animals','English in action: Likes and dislikes','Literacy: Reading practice','Writing: Information text','Review and self-assessment','Unit practice'],
-u3:['Vocabulary: Travel and transport','Dialogue and vocabulary practice','World of Wonder: Travel','Reading: Travel story','Vocabulary and Grammar: Travel vocabulary and future language','CLIL/Project: Travel and journeys','English in action: Talking about future feelings','Literacy: Reading','Writing: Travel text','Review and self-assessment']
-};
-function lessonMenu(unit,el){const a=lessonFocus[unit]||[];document.getElementById(el).innerHTML=a.map((x,i)=>'<div class="lesson-card" onclick="openLesson(\''+unit+'\','+(i+1)+')"><strong>Lesson '+(i+1)+'</strong><span>'+x+'</span><br><br><button class="btn">Open lesson →</button></div>').join('')}
+function openUnit(u){showPage(u==='u1'?'unit1':u==='u2'?'unit2':'unit3')}
 function openLesson(u,n){showPage(u+'l'+n)}
-lessonMenu('u1','u1Lessons');lessonMenu('u2','u2Lessons');lessonMenu('u3','u3Lessons');
-const U1LESSONS={
-1:{title:'Vocabulary — Jobs in entertainment',intro:'Learn and practise the 12 entertainment jobs from the unit.',html:'<div class="cards"><div class="card"><h3>🖼️ Look & Listen</h3><p>Tap a word to hear it.</p><button class="btn" onclick="showPage(\'vocabulary\')">Open vocabulary</button></div><div class="card"><h3>🧩 Match</h3><p>Who tells jokes and makes you laugh?</p><button class="option" onclick="lessonAnswer(this,true)">Comedian</button><button class="option" onclick="lessonAnswer(this,false)">Camera operator</button><div class="feedback"></div></div><div class="card"><h3>🎤 Speak</h3><p>Choose a job and say: “I’d like to be a …”</p><button class="btn" onclick="speak(\'I would like to be a comedian.\');addXP(5)">🔊 Listen</button></div></div>'},
-2:{title:'Vocabulary & communication practice',intro:'Practise describing entertainment jobs and using the new words.',html:'<div class="cards"><div class="card"><h3>🔎 Job Detective</h3><p>This person talks on television.</p><button class="option" onclick="lessonAnswer(this,true)">Presenter</button><button class="option" onclick="lessonAnswer(this,false)">Puppeteer</button><div class="feedback"></div></div><div class="card"><h3>🎭 Mime & Guess</h3><p>Choose a job, mime it, and let your partner guess.</p><button class="btn" onclick="addXP(10)">⭐ Complete activity</button></div></div>'},
-3:{title:'Listening & speaking',intro:'The unit dedicates Lesson 3 to listening practice and communication.',html:'<div class="cards"><div class="card"><h3>🎧 Listen</h3><p>Listen for key information, then choose the answer.</p><button class="btn" onclick="speak(\'Listen carefully and choose the correct answer.\')">🔊 Play instruction</button></div><div class="card"><h3>💬 Talk</h3><p>Name five entertainment jobs or places you know.</p><button class="btn" onclick="addXP(10)">✓ I completed it</button></div></div>'},
-4:{title:'Book Club — My Muscat diary',intro:'Read the diary and find entertainment places and future arrangements.',html:'<div class="card"><h3>📖 My Muscat diary</h3><p>Why did the family go to Muscat?</p><button class="option" onclick="lessonAnswer(this,true)">For a holiday</button><button class="option" onclick="lessonAnswer(this,false)">For school</button><div class="feedback"></div><p>Which entertainment place did they visit?</p><button class="option" onclick="lessonAnswer(this,true)">An aquarium</button><button class="option" onclick="lessonAnswer(this,false)">A bowling alley</button><div class="feedback"></div></div>'},
-5:{title:'Vocabulary & Grammar — Entertainment places',intro:'Learn entertainment places and practise the Present continuous for future arrangements.',html:'<div class="cards"><div class="card"><h3>🏟️ Places</h3><p>Match the place to its meaning.</p><button class="option" onclick="lessonAnswer(this,true)">aquarium — a place to see fish</button><button class="option" onclick="lessonAnswer(this,false)">aquarium — a place to see paintings</button><div class="feedback"></div></div><div class="card"><h3>⏰ Future arrangements</h3><p>Complete: “We ___ visiting Al-Qurum park on Sunday.”</p><button class="option" onclick="lessonAnswer(this,true)">are</button><button class="option" onclick="lessonAnswer(this,false)">is</button><div class="feedback"></div></div></div>'},
-6:{title:'Culture & Project',intro:'Explore culture and use creativity and collaboration to make a performance poster.',html:'<div class="cards"><div class="card"><h3>🎨 Create</h3><p>Design a poster for a performance. Include a title, place, date and time.</p><button class="btn" onclick="addXP(15)">⭐ Project complete</button></div><div class="card"><h3>🗣️ Present</h3><p>Say why your performance will be interesting.</p><button class="btn" onclick="speak(\'Our performance will be exciting because it is fun for everyone.\');addXP(5)">🔊 Hear a model</button></div></div>'},
-7:{title:'English in Action — Buying tickets',intro:'Practise functional language for buying tickets.',html:'<div class="card"><h3>🎟️ Ticket Counter</h3><p>Choose the polite question.</p><button class="option" onclick="lessonAnswer(this,true)">How much is a ticket, please?</button><button class="option" onclick="lessonAnswer(this,false)">Give ticket me.</button><div class="feedback"></div><p>Now practise the dialogue aloud.</p><button class="btn" onclick="speak(\'How much is a ticket, please? An adult ticket is twenty rials.\');addXP(5)">🔊 Listen to dialogue</button></div>'},
-8:{title:'Literacy — Reading',intro:'Read everyday texts and find specific information.',html:'<div class="card"><h3>📖 Reading Detective</h3><p>Read a short text, find key words and answer questions.</p><p><b>Tip:</b> Scan for names, places, dates and prices.</p><button class="btn" onclick="addXP(10)">✓ Reading complete</button></div>'},
-9:{title:'Literacy — Writing',intro:'Plan and write a short entertainment advert.',html:'<div class="card"><h3>✍️ Write an advert</h3><p>Include the place, activities, time and important information.</p><textarea id="u1writing" placeholder="Write your advert here..."></textarea><button class="btn" onclick="checkLessonWriting()">Check my writing</button><div id="u1writeFeedback" class="feedback"></div></div>'},
-10:{title:'Over to you! — Unit review',intro:'Review Unit 1 and reflect on what you learned.',html:'<div class="cards"><div class="card"><h3>💭 Reflect</h3><p>What did you like best in the unit?</p><textarea id="u1reflect" placeholder="Write your answer..."></textarea></div><div class="card"><h3>🏆 Final challenge</h3><p>Choose the correct sentence.</p><button class="option" onclick="lessonAnswer(this,true)">I’m seeing a show this weekend.</button><button class="option" onclick="lessonAnswer(this,false)">I seeing a show this weekend.</button><div class="feedback"></div></div></div><button class="btn big-action" onclick="addXP(20);speak(\'Well done! You completed Unit 1.\')">🏆 Complete Unit 1</button>'}
+function updateStats(){
+ const level=data.xp<50?'English Explorer':data.xp<150?'English Star':data.xp<300?'Team Together Champion':'English Master';
+ ['topStats','homeStats','progressStats'].forEach(id=>{const e=document.getElementById(id);if(e)e.innerHTML='<span class="stat">⭐ '+data.xp+' XP</span> <span class="stat">✅ '+data.correct+' correct</span>'});
+ ['xpFill','progressFill'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.width=Math.min(100,data.xp/3)+'%'});
+ const l=document.getElementById('levelText');if(l)l.textContent='🏅 '+level;
+ const pl=document.getElementById('progressLevel');if(pl)pl.textContent='🏅 '+level;
+ const b=document.getElementById('badges');if(b)b.innerHTML=data.xp>=50?'🏆 English Star':'Keep practising to unlock badges!';
+}
+function makeGrid(id,arr){
+ const e=document.getElementById(id);if(!e)return;
+ e.innerHTML=arr.map(x=>'<div class="wordcard" onclick="speak('+JSON.stringify(x[0])+');addXP(1)"><span class="pic">'+x[1]+'</span><span class="word">'+x[0]+'</span><span class="mini">🔊 Listen</span></div>').join('');
+}
+function mc(b,ok){b.classList.remove('wrong','correct');if(ok){b.classList.add('correct');addXP(10);b.parentElement.querySelectorAll('.feedback').forEach(x=>x.textContent='🎉 Correct!')}else{b.classList.add('wrong');speak('Try again!')}}
+function lessonAnswer(b,ok){mc(b,ok)}
+function checkLessonWriting(){const e=document.getElementById('u1writing'),f=document.getElementById('u1writeFeedback');if(e&&f){f.textContent=e.value.trim().length>=40?'🎉 Good start! +15 XP':'Write a little more.';if(e.value.trim().length>=40)addXP(15)}}
+function saveWriting(){const t=document.getElementById('topic'),w=document.getElementById('writing'),r=document.getElementById('writingResult');if(r)r.textContent=t.value.trim()&&w.value.trim()?'✓ Great! Keep practising your English.':'Please complete both boxes.'}
+function addWord(w){const e=document.getElementById('sentence');if(e)e.textContent=(e.textContent+' '+w).trim()}
+function clearSentence(){const e=document.getElementById('sentence');if(e)e.textContent=''}
+function checkSentence(){const e=document.getElementById('sentenceResult');if(e)e.textContent=document.getElementById('sentence').textContent==='She is a presenter'?'🎉 Excellent!':'❌ Try again.'}
+const lessonNames={
+u1:['Vocabulary: Jobs in entertainment','Vocabulary & communication practice','Listening & speaking','Book Club','Vocabulary & Grammar','Culture & Project','English in Action','Literacy: Reading','Literacy: Writing','Unit Review'],
+u2:['Vocabulary: Animal body parts','Vocabulary practice','Reading and animal language','Reading','Vocabulary & Grammar','CLIL / Project','English in Action','Literacy: Reading','Writing','Review','Unit practice'],
+u3:['Vocabulary: Travel and transport','Vocabulary practice','World of Wonder: Travel','Reading','Vocabulary & Grammar','CLIL / Project','English in Action','Literacy: Reading','Writing','Review']
 };
-function renderU1Lesson(n){const d=U1LESSONS[n];if(!d)return;const p=document.getElementById('u1l'+n);if(!p)return;const hero=p.querySelector('.hero');hero.querySelector('h2').textContent='🎬 Unit 1 — Lesson '+n+' | '+d.title;hero.querySelector('p').textContent=d.intro;const activities=p.querySelectorAll('.activity');activities.forEach((x,i)=>{if(i===0)x.innerHTML=d.html});}
-function lessonAnswer(b,ok){b.classList.add(ok?'correct':'wrong');const f=b.parentElement.querySelector('.feedback');if(f)f.textContent=ok?'🎉 Correct! +10 XP':'❌ Try again';if(ok)addXP(10);else speak('Try again!')}
-function checkLessonWriting(){const t=document.getElementById('u1writing').value.trim();document.getElementById('u1writeFeedback').textContent=t.length>=40?'🎉 Good start! +15 XP':'Write a little more, then check again.';if(t.length>=40)addXP(15)}
-for(let i=1;i<=10;i++)renderU1Lesson(i);
+function lessonMenu(u,id){
+ const e=document.getElementById(id);if(!e)return;
+ e.innerHTML=lessonNames[u].map((name,i)=>'<div class="lesson-card" onclick="openLesson(\''+u+'\','+(i+1)+')"><strong>Lesson '+(i+1)+'</strong><span>'+name+'</span><br><br><span class="btn">Open lesson →</span></div>').join('');
+}
+const U1=[
+['Vocabulary — Jobs in entertainment','Learn the entertainment jobs.','Open vocabulary'],
+['Vocabulary & communication practice','Job Detective and Mime & Guess.','Start activity'],
+['Listening & speaking','Listen for key information and practise speaking.','Start activity'],
+['Book Club — My Muscat diary','Read and answer questions.','Start reading'],
+['Vocabulary & Grammar','Entertainment places and future arrangements.','Start grammar'],
+['Culture & Project','Create a performance poster.','Start project'],
+['English in Action — Buying tickets','Practise buying tickets politely.','Practise dialogue'],
+['Literacy — Reading','Find specific information in a text.','Start reading'],
+['Literacy — Writing','Write an entertainment advert.','Write now'],
+['Over to you! — Unit review','Review Unit 1 and reflect.','Complete review']
+];
+function renderU1(){
+ U1.forEach((d,i)=>{const p=document.getElementById('u1l'+(i+1));if(!p)return;const h=p.querySelector('.hero');if(h){h.querySelector('h2').textContent='🎬 Unit 1 — Lesson '+(i+1)+' | '+d[0];h.querySelector('p').textContent=d[1]};const a=p.querySelector('.activity');if(a)a.innerHTML='<h3>🎯 '+d[0]+'</h3><p>'+d[1]+'</p><button class="btn big-action" onclick="addXP(10)">⭐ '+d[2]+'</button><p class="feedback"></p>'})
+}
+document.addEventListener('DOMContentLoaded',()=>{
+ makeGrid('v1grid',V.u1);makeGrid('v2grid',V.u2);makeGrid('v3grid',V.u3);
+ makeGrid('allv1',V.u1);makeGrid('allv2',V.u2);makeGrid('allv3',V.u3);
+ lessonMenu('u1','u1Lessons');lessonMenu('u2','u2Lessons');lessonMenu('u3','u3Lessons');
+ renderU1();updateStats();
+});
 </script>
 </body></html>
