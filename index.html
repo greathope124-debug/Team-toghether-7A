@@ -146,6 +146,13 @@ function showPage(id){
  return false;
 }
 window.showPage=showPage;
+window.mc=mc;
+window.lessonAnswer=lessonAnswer;
+window.saveWriting=saveWriting;
+window.saveChecklist=saveChecklist;
+window.checkSentence=checkSentence;
+window.clearSentence=clearSentence;
+window.addWord=addWord;
 function openUnit(u){showPage(u==='u1'?'unit1':u==='u2'?'unit2':'unit3')}
 function openLesson(u,n){showPage(u+'l'+n)}
 function updateStats(){
@@ -156,7 +163,7 @@ function updateStats(){
  const pl=document.getElementById('progressLevel');if(pl)pl.textContent='🏅 '+level;
  const b=document.getElementById('badges');if(b)b.innerHTML=data.xp>=50?'🏆 English Star':'Keep practising to unlock badges!';
 }
-function openWord(word,emoji){speak(word);addXP(1);const q=document.getElementById('wordPractice');if(q){q.innerHTML='<div class="card"><div style="font-size:4rem">'+emoji+'</div><h2>'+word+'</h2><p>🔊 Listen and repeat.</p><button class="btn" onclick="speak('+JSON.stringify(word)+')">🔊 Hear again</button><button class="btn" onclick="addXP(5)">⭐ I practised</button></div>';showPage('wordPractice')}}
+function openWord(word,emoji){speak(word);addXP(1);const q=document.getElementById('wordPracticeContent');if(q){q.innerHTML='<div class="card"><div style="font-size:4rem">'+emoji+'</div><h2>'+word+'</h2><p>🔊 Listen and repeat.</p><button class="btn" onclick="speak('+JSON.stringify(word)+')">🔊 Hear again</button><button class="btn" onclick="addXP(5)">⭐ I practised</button></div>';showPage('wordPractice')}}
 function makeGrid(id,arr){
  const e=document.getElementById(id);if(!e)return;
  e.innerHTML=arr.map(x=>'<div class="wordcard" role="button" tabindex="0" onclick="openWord('+JSON.stringify(x[0])+','+JSON.stringify(x[1])+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \')openWord('+JSON.stringify(x[0])+','+JSON.stringify(x[1])+')"><span class="pic">'+x[1]+'</span><span class="word">'+x[0]+'</span><span class="mini">🔊 Tap to practise</span></div>').join('');
@@ -225,7 +232,7 @@ function openWord(word,emoji){
  const q=document.getElementById('wordPractice');
  if(!q)return;
  q.innerHTML='<div class="card"><div style="font-size:4rem">'+emoji+'</div><h2>'+word+'</h2><p>🔊 Listen and repeat.</p><button class="btn" onclick="speak('+JSON.stringify(word)+')">🔊 Hear again</button><button class="btn" onclick="addXP(5)">⭐ I practised</button><button class="btn" onclick="showPage(\'vocabulary\')">← Back to Vocabulary</button></div>';
- showPage('wordPractice');
+ showPage('wordPracticePage');
 }
 
 let matchState={picked:null,matched:0};
