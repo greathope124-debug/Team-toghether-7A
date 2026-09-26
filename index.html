@@ -213,7 +213,7 @@ function renderLessonSet(unit,arr,count){
   const p=document.getElementById(unit+'l'+i);
   if(!p)continue;
   const activity=arr[(i-1)%arr.length];
-  p.innerHTML='<button class="btn backbtn" onclick="showPage(\''+unit+'\')">← Back to Unit</button><div class="hero"><h2>'+unit.toUpperCase()+' • Lesson '+i+'</h2><p>Interactive practice</p></div><div class="activity">'+activity+'</div><div class="card" style="margin-top:16px"><button class="btn" onclick="showPage(\''+unit+'l'+(i===count?1:i+1)+'\')">➡️ '+(i===count?'Start again':'Next Lesson')+'</button></div>';
+  p.innerHTML='<button class="btn backbtn" onclick="showPage(\'unit\'+unit.slice(1))">← Back to Unit</button><div class="hero"><h2>'+unit.toUpperCase()+' • Lesson '+i+'</h2><p>Interactive practice</p></div><div class="activity">'+activity+'</div><div class="card" style="margin-top:16px"><button class="btn" onclick="showPage(\''+unit+'l'+(i===count?1:i+1)+'\')">➡️ '+(i===count?'Start again':'Next Lesson')+'</button></div>';
  }
 }
 function renderU1(){renderLessonSet('u1',U1ACT,10)}
