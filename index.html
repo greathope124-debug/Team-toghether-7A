@@ -225,6 +225,71 @@ function openWord(word,emoji){
  q.innerHTML='<div class="card"><div style="font-size:4rem">'+emoji+'</div><h2>'+word+'</h2><p>🔊 Listen and repeat.</p><button class="btn" onclick="speak('+JSON.stringify(word)+')">🔊 Hear again</button><button class="btn" onclick="addXP(5)">⭐ I practised</button><button class="btn" onclick="showPage(\'vocabulary\')">← Back to Vocabulary</button></div>';
  showPage('wordPractice');
 }
+
+let matchState={picked:null,matched:0};
+const matchPairs=[['🎤','presenter'],['😂','comedian'],['📹','camera operator'],['🧳','suitcase'],['🚆','travel by train'],['🐦','beak']];
+function setupMatch(){
+ const e=document.getElementById('matchGame');if(!e)return;
+ matchState={picked:null,matched:0};
+ e.innerHTML=matchPairs.map((p,i)=>'<button class="option matchbtn" data-i="'+i+'" onclick="pickMatch('+i+')">'+p[0]+' '+p[1]+'</button>').join('');
+ const r=document.getElementById('matchResult');if(r)r.textContent='Match the picture and word by saying the word aloud.';
+}
+function pickMatch(i){
+ const b=document.querySelectorAll('#matchGame .matchbtn')[i];if(!b)return;
+ b.classList.add('correct');matchState.matched++;addXP(3);
+ if(matchState.matched>=matchPairs.length){const r=document.getElementById('matchResult');if(r)r.textContent='🎉 Great! You matched them all!';}
+}
+const sortItems=[['comedian','ent'],['presenter','ent'],['suitcase','travel'],['passport','travel'],['clown','ent'],['umbrella','travel']];
+function setupDrag(){
+ const b=document.getElementById('dragItems');if(!b)return;
+ b.innerHTML=sortItems.map((x,i)=>'<span class="dragitem" draggable="true" id="drag'+i+'" data-type="'+x[1]+'" ondragstart="event.dataTransfer.setData(\\'text/plain\\',this.id)">'+x[0]+'</span>').join('');
+}
+function dropSort(ev,type){
+ ev.preventDefault();
+ const id=ev.dataTransfer.getData('text/plain'),el=document.getElementById(id),fb=document.getElementById('dragFeedback');
+ if(!el)return;
+ if(el.dataset.type===type){ev.currentTarget.appendChild(el);el.draggable=false;addXP(5);if(fb)fb.textContent='✅ Correct!';}
+ else if(fb)fb.textContent='❌ Try the other category.';
+}
+let speedIndex=0,speedScore=0,speedTimer=null;
+const speedItems=[['Which job makes people laugh?',['comedian','writer'],0],['What do you pack for a trip?',['suitcase','whiskers'],0],['Which animal part helps a bird eat?',['beak','paws'],0],['What do you do when leaving a bus?',['get off','get on'],0]];
+function startSpeed(){
+ clearInterval(speedTimer);speedIndex=0;speedScore=0;
+ const s=document.getElementById('speedScore');if(s)s.textContent='Score: 0';
+ nextSpeed();
+ let t=30;const timer=document.getElementById('timer');if(timer)timer.textContent=t;
+ speedTimer=setInterval(()=>{t--;if(timer)timer.textContent=t;if(t<=0){clearInterval(speedTimer);if(s)s.textContent='🏁 Final score: '+speedScore;}},1000);
+}
+function nextSpeed(){
+ const q=speedItems[speedIndex%speedItems.length],el=document.getElementById('speedQ'),opts=document.getElementById('speedOptions');
+ if(!el||!opts)return;
+ el.textContent=q[0];opts.innerHTML=q[1].map((x,i)=>'<button class="option" onclick="speedAnswer('+i+')">'+x+'</button>').join('');
+}
+function speedAnswer(i){
+ const q=speedItems[speedIndex%speedItems.length];
+ if(i===q[2]){speedScore++;addXP(5);document.getElementById('speedScore').textContent='Score: '+speedScore+' ⭐';}
+ else document.getElementById('speedScore').textContent='Try again!';
+ speedIndex++;nextSpeed();
+}
+let memoryOpen=null,memoryDone=0;
+function setupMemory(){
+ const e=document.getElementById('memoryGame');if(!e)return;
+ memoryOpen=null;memoryDone=0;
+ e.innerHTML=matchPairs.slice(0,4).map((p,i)=>'<button class="option memorybtn" id="mem'+i+'" onclick="memoryPick('+i+')">❓</button>').join('');
+}
+function memoryPick(i){
+ const b=document.getElementById('mem'+i);if(!b)return;
+ const p=matchPairs[i%matchPairs.length];b.textContent=p[0]+' '+p[1];b.disabled=true;memoryDone++;addXP(2);
+ if(memoryDone>=4){const f=document.getElementById('memoryFeedback');if(f)f.textContent='🧠 Nice memory!';}
+}
+function spinWheel(){
+ const challenges=['Say “comedian” aloud.','Make a sentence with “suitcase”.','Spell “travel”.','Say one animal body part.','Listen and repeat: “I am going to travel.”'];
+ const q=challenges[Math.floor(Math.random()*challenges.length)],e=document.getElementById('wheelQuestion');
+ if(e)e.innerHTML='<h3>🎯 Challenge</h3><p>'+q+'</p><button class="btn" onclick="addXP(5)">⭐ Done</button>';
+}
+function initGames(){
+ setupMatch();setupDrag();setupMemory();
+}
 const U1ACT=["<div class=\"cards\"><div class=\"card\"><h3>🧩 Job Detective</h3><p>Who makes people laugh?</p><button class=\"option\" onclick=\"lessonAnswer(this,true)\">Comedian</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">Camera operator</button><div class=\"feedback\"></div></div><div class=\"card\"><h3>🔊 Listen & Repeat</h3><button class=\"btn\" onclick=\"speak('comedian')\">🔊 Comedian</button><button class=\"btn\" onclick=\"speak('presenter')\">🔊 Presenter</button></div></div>","<div class=\"card\"><h3>🎭 Mime & Guess</h3><p>Choose a job and mime it for your partner.</p><button class=\"btn\" onclick=\"addXP(10)\">⭐ I completed it</button></div>","<div class=\"card\"><h3>🎧 Listening Challenge</h3><p>Listen and choose the job.</p><button class=\"btn\" onclick=\"speak('camera operator')\">🔊 Play</button><br><button class=\"option\" onclick=\"lessonAnswer(this,true)\">Camera operator</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">Clown</button><div class=\"feedback\"></div></div>","<div class=\"card\"><h3>📖 Reading Detective</h3><p>Read and answer: What is the text mainly about?</p><button class=\"option\" onclick=\"lessonAnswer(this,true)\">An entertainment experience</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">A school timetable</button><div class=\"feedback\"></div></div>","<div class=\"card\"><h3>⏰ Grammar Challenge</h3><p>Complete: We ___ visiting the park on Sunday.</p><button class=\"option\" onclick=\"lessonAnswer(this,true)\">are</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">is</button><div class=\"feedback\"></div></div>","<div class=\"card\"><h3>🎨 Project Challenge</h3><p>Create a performance poster with title, place, date and time.</p><button class=\"btn\" onclick=\"addXP(15)\">⭐ Project complete</button></div>","<div class=\"card\"><h3>🎟️ Buying Tickets</h3><p>Choose the polite question.</p><button class=\"option\" onclick=\"lessonAnswer(this,true)\">How much is a ticket, please?</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">Give ticket me.</button><div class=\"feedback\"></div><button class=\"btn\" onclick=\"speak('How much is a ticket, please?')\">🔊 Listen</button></div>","<div class=\"card\"><h3>🔎 Reading Skills</h3><p>Scan for names, places, dates and prices.</p><button class=\"btn\" onclick=\"addXP(10)\">✓ Complete reading</button></div>","<div class=\"card\"><h3>✍️ Write an Advert</h3><textarea id=\"u1writing\" rows=\"5\" placeholder=\"Write your entertainment advert...\"></textarea><button class=\"btn\" onclick=\"checkLessonWriting()\">✓ Check writing</button><p id=\"u1writeFeedback\"></p></div>","<div class=\"card\"><h3>🏆 Unit 1 Review</h3><p>Choose the correct sentence.</p><button class=\"option\" onclick=\"lessonAnswer(this,true)\">I am going to watch a film tonight.</button><button class=\"option\" onclick=\"lessonAnswer(this,false)\">I going watch film tonight.</button><div class=\"feedback\"></div></div>"];const U1=[["Lesson 1","Interactive activity"],["Lesson 2","Interactive activity"],["Lesson 3","Interactive activity"],["Lesson 4","Interactive activity"],["Lesson 5","Interactive activity"],["Lesson 6","Interactive activity"],["Lesson 7","Interactive activity"],["Lesson 8","Interactive activity"],["Lesson 9","Interactive activity"],["Lesson 10","Interactive activity"]];
 document.addEventListener('DOMContentLoaded',()=>{makeGrid('v1grid',V.u1);makeGrid('v2grid',V.u2);makeGrid('v3grid',V.u3);makeGrid('allv1',V.u1);makeGrid('allv2',V.u2);makeGrid('allv3',V.u3);lessonMenu('u1','u1Lessons');lessonMenu('u2','u2Lessons');lessonMenu('u3','u3Lessons');renderU1();renderU2U3();updateStats();});
 </script>
